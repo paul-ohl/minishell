@@ -1,0 +1,4 @@
+0	success
+1	malloc fail
+2	command entered too long, max length is 262144 characters
+3	parsing failed
