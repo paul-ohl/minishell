@@ -106,8 +106,6 @@ int			parser(char *buffer, t_command *command, char **envp, t_env *env)
 		else if (!ft_strcmp(argv[0], "exit")
 				&& (argv = free_argv(argv, argc, executable_path)) == 0)
 			return (1);
-		// printf("%s\n", argv[0]);
-		// printf("%d\n", argc);
 		argv = free_argv(argv, argc, executable_path);
 		argc = 0;
 	}

@@ -30,7 +30,6 @@ int				ft_echo(t_env *env, char **args)
 	int		n_option;
 
 	i = 1;
-
 	n_option = 0;
 	if (nb_args(args) > 1)
 	{

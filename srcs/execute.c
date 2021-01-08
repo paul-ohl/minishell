@@ -21,6 +21,7 @@
 int		builtin_handler(char *path, t_command *cmd, char **argv, t_env *env)
 {
 	int		i;
+
 	if (!ft_strcmp(path, "exit"))
 	{
 		i = 0;

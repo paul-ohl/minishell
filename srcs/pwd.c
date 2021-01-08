@@ -24,7 +24,7 @@ int		ft_pwd(void)
 	{
 		ft_putendl_fd(cwd, 1);
 		return (0);
-        printf("\npwd: %s\n", cwd);
+		printf("\npwd: %s\n", cwd);
 	}
 	else
 		return (1);
