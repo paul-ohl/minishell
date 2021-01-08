@@ -52,7 +52,7 @@ int		get_fd(char *redirection, char type, t_command *command)
 	return (fd);
 }
 
-int		get_redirect(t_command *command, int *i, char **envp)
+int		get_redirect(t_command *command, int *i)
 {
 	int		tmp;
 	char	type;
@@ -68,7 +68,7 @@ int		get_redirect(t_command *command, int *i, char **envp)
 	while (command->cmd[(*i) + 1] == ' ')
 		(*i)++;
 	tmp = skip_redirect(command->cmd, *i) - 1;
-	if (!(redirect = get_word(command, (*i) + 1, tmp + 1, envp)))
+	if (!(redirect = get_word(command, (*i) + 1, tmp + 1)))
 		return (0);
 	*i = tmp;
 	if (!(tmp = get_fd(redirect, type, command)))
@@ -90,7 +90,7 @@ int		increment_variables(char *str, int *i)
 	return (*i);
 }
 
-char	**parse_command(t_command *command, int argc, char **envp)
+char	**parse_command(t_command *command, int argc)
 {
 	int		i;
 	int		j;
@@ -107,12 +107,12 @@ char	**parse_command(t_command *command, int argc, char **envp)
 		i = skip_quote(command->cmd, i);
 		if (reached_end_of_word(command->cmd + start, i - start))
 		{
-			if (!(argv[j++] = get_word(command, start, i, envp)))
+			if (!(argv[j++] = get_word(command, start, i)))
 				return (NULL);
 			start = increment_variables(command->cmd, &i);
 		}
 		if (command->cmd[i] == '>' || command->cmd[i] == '<')
-			if (!(get_redirect(command, &i, envp) && (start = i + 1) > -1))
+			if (!(get_redirect(command, &i) && (start = i + 1) > -1))
 				return (free_argv(argv, j, NULL));
 		i = (command->cmd[i] == '\\' && command->cmd[i + 1]) ? i + 1 : i;
 	}

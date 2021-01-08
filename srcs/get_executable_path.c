@@ -71,7 +71,7 @@ int		is_file_executable(char *path)
 	return (stat(path, &buffer) == 0);
 }
 
-char	*get_executable_path(char *program_name, char **envp)
+char	*get_executable_path(char *program_name, t_env *env)
 {
 	char		**path;
 	char		*program;
@@ -79,7 +79,7 @@ char	*get_executable_path(char *program_name, char **envp)
 
 	if (is_builtin(program_name) || is_file_executable(program_name))
 		return (ft_strdup(program_name));
-	if (!(path = ft_split(get_env_str("PATH", envp), ':')))
+	if (!(path = ft_split(get_env_str("PATH", env), ':')))
 		return (NULL);
 	i = 0;
 	while (path[i])

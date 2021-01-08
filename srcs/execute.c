@@ -18,7 +18,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-int		builtin_handler(char *path, t_command *cmd, char **argv, t_env *env)
+int		builtin_handler(char *path, t_command *cmd, char **argv)
 {
 	int		i;
 
@@ -39,7 +39,7 @@ int		builtin_handler(char *path, t_command *cmd, char **argv, t_env *env)
 		else if ((cmd->return_value = 7) == 7)
 			return ((errno = cmd->return_value));
 	}
-	builtin_exec(path, cmd, argv, path);
+	builtin_exec(path, cmd, argv);
 	return (0);
 }
 
@@ -63,22 +63,28 @@ void	dup_selector(int to_dup[2], t_command *command, int new_pipe_out)
 		to_dup[1] = command->fd_out;
 }
 
-void	slave_action(int to_dup[2], t_command *cmd)
+int		slave_action(int to_dup[2], t_command *cmd, char *path, char **argv)
 {
+	char	**envp;
+
 	dup2(to_dup[0], 0);
 	dup2(to_dup[1], 1);
 	if (cmd->type_in == '|')
 		close_pipe(cmd->pipe_fd);
+	if (!(envp = to_string_array(cmd->env)))
+		return (-1);
+	execve(path, argv, envp);
+	return (0);
 }
 
-int		execute(char *path, t_command *cmd, char **argv, char **envp, t_env *env)
+int		execute(char *path, t_command *cmd, char **argv)
 {
 	int		to_dup[2];
 	int		new_pipe[2];
 	pid_t	pid;
 
 	if (is_builtin(path))
-		return (builtin_handler(path, cmd, argv, env));
+		return (builtin_handler(path, cmd, argv));
 	if ((cmd->type_out == '|' || cmd->pipe == PIPE_YES) && pipe(new_pipe))
 		return (-1);
 	if ((pid = fork()) < 0)
@@ -86,8 +92,8 @@ int		execute(char *path, t_command *cmd, char **argv, char **envp, t_env *env)
 	dup_selector(to_dup, cmd, new_pipe[1]);
 	if (pid == 0)
 	{
-		slave_action(to_dup, cmd);
-		execve(path, argv, envp);
+		if (slave_action(to_dup, cmd, path, argv))
+			return (GLOB_ERR_MALLOC);
 	}
 	else
 	{

@@ -70,7 +70,7 @@ int			skip_redirect(char *buffer, int i)
 	return (i);
 }
 
-t_command	*init_struct(void)
+t_command	*init_struct(char **envp)
 {
 	t_command	*command;
 
@@ -83,6 +83,7 @@ t_command	*init_struct(void)
 	command->type_out = ';';
 	command->pipe = PIPE_NO;
 	command->return_value = 0;
+	command->env = stock_env(envp);
 	return (command);
 }
 

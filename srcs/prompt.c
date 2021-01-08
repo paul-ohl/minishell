@@ -43,18 +43,12 @@ int		start(int argc, char **argv, char **envp)
 	char		*buf;
 	int			err;
 	t_command	*command;
-	t_env		*env;
 
-	env = NULL;
-	env = stock_env(env, envp);
-	// print_env(env);
-	// export(env);
-	// print_env(env);
 	argc = 0;
 	argv = NULL;
 	if (!(buf = (char *)malloc(sizeof(*buf) * MAX_CMD_LEN)))
 		return (GLOB_ERR_MALLOC);
-	if (!(command = init_struct()))
+	if (!(command = init_struct(envp)))
 		return (GLOB_ERR_MALLOC);
 	while (1)
 	{
@@ -62,7 +56,7 @@ int		start(int argc, char **argv, char **envp)
 			return (GLOB_CMD_LEN);
 		if ((err = basic_syntax_check(buf)))
 			print_syntax_error(err);
-		else if ((err = parser(buf, command, envp, env)) == 1)
+		else if ((err = parser(buf, command)) == 1)
 			return (exit_return(buf, command));
 		else if (err)
 			print_parser_error(err, command);

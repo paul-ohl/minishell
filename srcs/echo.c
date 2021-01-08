@@ -24,7 +24,7 @@ static	int		nb_args(char **args)
 	return (size);
 }
 
-int				ft_echo(t_env *env, char **args)
+int				ft_echo(char **args)
 {
 	int		i;
 	int		n_option;

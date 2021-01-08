@@ -117,18 +117,19 @@ void	print_env(t_env *env, int ind)
 	}
 }
 
-t_env	*stock_env(t_env *env, char **envp)
+t_env	*stock_env(char **envp)
 {
 	int     i;
 	t_env   *tmp;
 	t_env   *new;
+	t_env   *env;
 
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		return (NULL);
 	tmp = env;
 	env->name = ft_substr(envp[0], 0, len_env(envp[0]));
 	env->value = ft_substr(envp[0], len_env(envp[0]) + 1,
-	ft_strlen(envp[0]) - len_env(envp[0]) - 1);
+			ft_strlen(envp[0]) - len_env(envp[0]) - 1);
 	i = 0;
 	while (envp[++i])
 	{

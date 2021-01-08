@@ -39,15 +39,14 @@ int		check_name(char *str)
 int		change_value(t_env *env, char *argv)
 {
 	t_env *tmp;
-	
+
 	tmp = env;
-	
 	while (tmp->next)
 	{
 		if (!ft_strcmp(ft_substr(argv, 0, len_env(argv)), tmp->name))
 		{
 			tmp->value = ft_substr(argv, len_env(argv) + 1, 
-			ft_strlen(argv) - len_env(argv) - 1);
+					ft_strlen(argv) - len_env(argv) - 1);
 			return (0);
 		}
 		tmp = tmp->next;
@@ -58,7 +57,7 @@ int		change_value(t_env *env, char *argv)
 int		existing_name(t_env *env, char *argv)
 {
 	t_env *tmp;
-	
+
 	tmp = env;
 	while (tmp->next)
 	{

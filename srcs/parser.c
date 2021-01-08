@@ -86,7 +86,7 @@ int			get_next_command(t_command *command, char *buffer)
 	return (1);
 }
 
-int			parser(char *buffer, t_command *command, char **envp, t_env *env)
+int			parser(char *buffer, t_command *command)
 {
 	int			argc;
 	char		*executable_path;
@@ -96,12 +96,12 @@ int			parser(char *buffer, t_command *command, char **envp, t_env *env)
 	{
 		executable_path = 0;
 		argc = arg_count(command->cmd);
-		if (!(argv = parse_command(command, argc, envp)))
+		if (!(argv = parse_command(command, argc)))
 			return (get_next_command(command, NULL));
 		argv[argc] = 0;
-		if (!(executable_path = get_executable_path(argv[0], envp)))
+		if (!(executable_path = get_executable_path(argv[0], command->env)))
 			printf("couldn't find %s\n", argv[0]);
-		else if (execute(executable_path, command, argv, envp, env))
+		else if (execute(executable_path, command, argv))
 			printf("error: %s\n", strerror(errno));
 		else if (!ft_strcmp(argv[0], "exit")
 				&& (argv = free_argv(argv, argc, executable_path)) == 0)

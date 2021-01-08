@@ -15,12 +15,12 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-int		env_len(t_command *command, int *start, char **envp)
+int		env_len(t_command *command, int *start)
 {
 	int		env_variable_len;
 	char	*env_var;
 
-	env_var = get_env(command, start, envp);
+	env_var = get_env(command, start);
 	env_variable_len = ft_strlen(env_var) - 1;
 	if (command->cmd[*start] == '?')
 		free(env_var);
@@ -39,7 +39,7 @@ int		fill_single_quotes(char *input, char *output, int *i)
 	return (return_value);
 }
 
-void	fill_str(char *output, t_command *command, int *start_end, char **envp)
+void	fill_str(char *output, t_command *command, int *start_end)
 {
 	int		i;
 	int		inside_quotes;
@@ -53,10 +53,10 @@ void	fill_str(char *output, t_command *command, int *start_end, char **envp)
 		else if (command->cmd[i] == '\'' && !inside_quotes)
 			output += fill_single_quotes(command->cmd, output, &i);
 		else if (command->cmd[i] == '$')
-			output += ft_strcpy_free_input(output, get_env(command, &i, envp),
+			output += ft_strcpy_free_input(output, get_env(command, &i),
 					(command->cmd[i] == '?'));
 		else if (command->cmd[i] == '~' && !inside_quotes)
-			output += ft_strcpy(output, get_env_str("HOME", envp));
+			output += ft_strcpy(output, get_env_str("HOME", command->env));
 		else if (command->cmd[i] == '"')
 			inside_quotes = !inside_quotes;
 		else
@@ -64,7 +64,7 @@ void	fill_str(char *output, t_command *command, int *start_end, char **envp)
 	}
 }
 
-int		get_processed_len(t_command *command, int start, int end, char **envp)
+int		get_processed_len(t_command *command, int start, int end)
 {
 	int		processed_len;
 	int		tmp;
@@ -84,16 +84,16 @@ int		get_processed_len(t_command *command, int start, int end, char **envp)
 		else if (command->cmd[start] == '\\' && start < end - 1)
 			start++;
 		else if (command->cmd[start] == '$')
-			processed_len += env_len(command, &start, envp);
+			processed_len += env_len(command, &start);
 		else if (command->cmd[start] == '~')
-			processed_len += ft_strlen(get_env_str("HOME", envp)) - 1;
+			processed_len += ft_strlen(get_env_str("HOME", command->env)) - 1;
 		start++;
 		processed_len++;
 	}
 	return (processed_len);
 }
 
-char	*get_word(t_command *command, int start, int end, char **envp)
+char	*get_word(t_command *command, int start, int end)
 {
 	char	*result_str;
 	int		result_len;
@@ -101,7 +101,7 @@ char	*get_word(t_command *command, int start, int end, char **envp)
 
 	if (command->cmd[start] == ' ')
 		start++;
-	result_len = get_processed_len(command, start, end, envp);
+	result_len = get_processed_len(command, start, end);
 	if (!(result_str = malloc(sizeof(result_str) * (result_len + 1))))
 		return (NULL);
 	result_str[result_len] = 0;
@@ -109,6 +109,6 @@ char	*get_word(t_command *command, int start, int end, char **envp)
 		return (result_str);
 	start_end[0] = start;
 	start_end[1] = end;
-	fill_str(result_str, command, start_end, envp);
+	fill_str(result_str, command, start_end);
 	return (result_str);
 }
