@@ -137,7 +137,7 @@ t_env	*stock_env(char **envp)
 			return (NULL);
 		new->name = ft_substr(envp[i], 0, len_env(envp[i]));
 		new->value = ft_substr(envp[i], len_env(envp[i]) + 1,
-		ft_strlen(envp[i]) - len_env(envp[i]) - 1);
+				ft_strlen(envp[i]) - len_env(envp[i]) - 1);
 		new->next = NULL;
 		env->next = new;
 		env = env->next;

@@ -30,10 +30,20 @@ int		print_prompt(char *buf)
 int		exit_return(char *buf, t_command *command)
 {
 	int		exit_value;
+	t_env	*tmp;
 
 	exit_value = command->return_value;
 	free(buf);
 	reset_fds(command);
+	while (command->env)
+	{
+		tmp = command->env->next;
+		free(command->env->name);
+		free(command->env->value);
+		free(command->env);
+		command->env = tmp;
+	}
+	free(command->env);
 	free(command);
 	return (exit_value);
 }

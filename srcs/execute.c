@@ -65,15 +65,15 @@ void	dup_selector(int to_dup[2], t_command *command, int new_pipe_out)
 
 int		slave_action(int to_dup[2], t_command *cmd, char *path, char **argv)
 {
-	char	**envp;
+	// char	**envp;
 
 	dup2(to_dup[0], 0);
 	dup2(to_dup[1], 1);
 	if (cmd->type_in == '|')
 		close_pipe(cmd->pipe_fd);
-	if (!(envp = to_string_array(cmd->env)))
-		return (-1);
-	execve(path, argv, envp);
+	// if (!(envp = to_string_array(cmd->env)))
+	// 	return (-1);
+	execve(path, argv, NULL);
 	return (0);
 }
 
