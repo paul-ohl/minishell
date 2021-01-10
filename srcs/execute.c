@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 07:19:55 by paulohl           #+#    #+#             */
-/*   Updated: 2020/12/23 16:45:02 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/01/10 16:50:41 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,15 @@ void	dup_selector(int to_dup[2], t_command *command, int new_pipe_out)
 
 int		slave_action(int to_dup[2], t_command *cmd, char *path, char **argv)
 {
-	// char	**envp;
+	char	**envp;
 
 	dup2(to_dup[0], 0);
 	dup2(to_dup[1], 1);
 	if (cmd->type_in == '|')
 		close_pipe(cmd->pipe_fd);
-	// if (!(envp = to_string_array(cmd->env)))
-	// 	return (-1);
-	execve(path, argv, NULL);
+	if (!(envp = to_string_array(cmd->env)))
+		return (-1);
+	execve(path, argv, envp);
 	return (0);
 }
 
