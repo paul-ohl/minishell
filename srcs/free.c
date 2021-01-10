@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
+/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 06:34:05 by paulohl           #+#    #+#             */
-/*   Updated: 2020/11/27 10:57:04 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/10 17:16:40 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,15 @@ void		reset_fds(t_command *command)
 		close(command->fd_in);
 	if (command->fd_out != 1)
 		close(command->fd_out);
+}
+
+char	**free_envp(char **envp, int end)
+{
+	int		i;
+
+	i = -1;
+	while (++i < end)
+		free(envp[i]);
+	free(envp);
+	return (NULL);
 }

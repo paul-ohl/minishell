@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
+/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:11:39 by paulohl           #+#    #+#             */
-/*   Updated: 2020/11/30 11:33:31 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/10 17:13:14 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #define SYN_ERR_SEMICOL 6
 #define SYN_ERR_REDIR 7
 
-int		check_redirect(char *str, int i)
+int	check_redirect(char *str, int i)
 {
 	if (str[i] != '>' && str[i] != '<')
 		return (SYNTAX_CLEAR);
@@ -34,7 +34,7 @@ int		check_redirect(char *str, int i)
 	return (SYNTAX_CLEAR);
 }
 
-int		check_quotes(char *str, int i)
+int check_quotes(char *str, int i)
 {
 	char	to_skip;
 
@@ -48,7 +48,7 @@ int		check_quotes(char *str, int i)
 		return (i);
 }
 
-int		check_cmd_separators(char *str, int i)
+int check_cmd_separators(char *str, int i)
 {
 	char	current_char;
 
@@ -67,7 +67,7 @@ int		check_cmd_separators(char *str, int i)
 	return (SYNTAX_CLEAR);
 }
 
-int		basic_syntax_check(char *str)
+int basic_syntax_check(char *str)
 {
 	int		i;
 	int		err;
@@ -96,7 +96,7 @@ int		basic_syntax_check(char *str)
 	return (SYNTAX_CLEAR);
 }
 
-void	print_syntax_error(int err)
+void print_syntax_error(int err)
 {
 	ft_putstr_fd("Minishell error: ", 2);
 	if (err == SYN_ERR_QUOT)
@@ -117,7 +117,7 @@ void	print_syntax_error(int err)
 		ft_putstr_fd("Error code unknown.\n", 2);
 }
 
-void	print_parser_error(int err, t_command *command)
+void print_parser_error(int err, t_command *command)
 {
 	ft_putstr_fd("Minishell error: ", 2);
 	if (err == 2 && command->return_value)

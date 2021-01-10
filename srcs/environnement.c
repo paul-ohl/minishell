@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environnement.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
+/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 16:00:45 by paulohl           #+#    #+#             */
-/*   Updated: 2020/11/24 10:36:32 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/10 17:16:44 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,6 @@ char	*get_env(t_command *command, int *i)
 		(*i)++;
 	(*i)--;
 	return (env_var);
-}
-
-char	**free_envp(char **envp, int end)
-{
-	int		i;
-
-	i = -1;
-	while (++i < end)
-		free(envp[i]);
-	free(envp);
-	return (NULL);
 }
 
 char	**to_string_array(t_env *env)

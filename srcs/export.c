@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2020/12/18 20:00:21 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/01/10 18:36:16 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,44 @@ int		check_name(char *str)
 
 int		change_value(t_env *env, char *argv)
 {
-	t_env *tmp;
+	t_env	*tmp;
+	char	*compared_string;
 
 	tmp = env;
+	compared_string = ft_substr(argv, 0, len_env(argv));
 	while (tmp->next)
 	{
-		if (!ft_strcmp(ft_substr(argv, 0, len_env(argv)), tmp->name))
+		if (!ft_strcmp(compared_string, tmp->name))
 		{
+			free(compared_string);
+			free(tmp->value);
 			tmp->value = ft_substr(argv, len_env(argv) + 1, 
 					ft_strlen(argv) - len_env(argv) - 1);
 			return (0);
 		}
 		tmp = tmp->next;
 	}
+	free(compared_string);
 	return (1);
 }
 
 int		existing_name(t_env *env, char *argv)
 {
-	t_env *tmp;
+	t_env	*tmp;
+	char	*compared_string;
 
 	tmp = env;
+	compared_string = ft_substr(argv, 0, len_env(argv));
 	while (tmp->next)
 	{
-		if (!ft_strcmp(ft_substr(argv, 0, len_env(argv)), tmp->name))
+		if (!ft_strcmp(compared_string, tmp->name))
+		{
+			free(compared_string);
 			return (0);
+		}
 		tmp = tmp->next;
 	}
+	free(compared_string);
 	return (1);
 }
 
@@ -115,7 +126,7 @@ int		export(t_env *env, int argc, char *argv)
 		temp->value = tmp->value;
 		tmp->name = ft_substr(argv, 0, len_env(argv));
 		tmp->value = ft_substr(argv, len_env(argv) + 1,
-		ft_strlen(argv) - len_env(argv) - 1);
+				ft_strlen(argv) - len_env(argv) - 1);
 		tmp->next = temp;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2020/12/23 15:12:27 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/01/10 17:17:03 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void					print_env_alhasort(t_env *env);
 int						ft_echo(char **args);
 int						export_check(t_env *env, char **argv);
 char					**to_string_array(t_env *env);
+char					**free_envp(char **envp, int end);
 
 #endif
