@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 23:25:31 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/13 11:33:20 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/13 11:35:43 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,24 +91,17 @@ int	ft_cd(char **args, t_env *env)
 		cd_ret = go_to_path(1, env);
 	else
 	{
-		printf("1%s\n", get_oldpwd(env));
 		temp = ft_strdup(get_oldpwd(env));
-		printf("2%s\n", temp);
 		update_oldpwd(env);
-		printf("3%s\n", temp);
 		cd_ret = chdir(args[1]);
-		printf("4%s\n", temp);
 		update_pwd(env);
-		printf("5%s\n", temp);
 		if (cd_ret < 0)
 			cd_ret *= -1;
 		if (cd_ret != 0)
 		{
 			if (temp != NULL)
-			{
-				printf("ON PAASSE PAR LA %s\n", temp);
 				change_value(env, ft_strjoin("OLDPWD=", temp));
-			}
+			free(temp);
 			print_error(args);
 		}
 	}

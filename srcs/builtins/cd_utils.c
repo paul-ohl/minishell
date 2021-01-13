@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:44:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/13 11:09:35 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/13 11:35:33 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ char	*get_oldpwd(t_env *env)
 	while (tmp && tmp->name)
 	{
 		if (!ft_strcmp("OLDPWD", tmp->name))
-		{
-			printf("123 = %s\n", tmp->value);
 			return (tmp->value);
-		}
 		tmp = tmp->next;
 	}
 	return (NULL);
