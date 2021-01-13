@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:53:18 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/13 11:17:34 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/13 11:42:01 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void    print_env(t_env *env, int ind)
 
     while (tmp)
     {
-        if (tmp->aff == 0)
+        if (tmp->aff == 1)
         {
             ft_putstr_fd(tmp->name, 1);
             ft_putstr_fd("=", 1);
@@ -144,6 +144,7 @@ t_env   *stock_env(char **envp)
 	env->name = ft_substr(envp[0], 0, len_env(envp[0]));
 	env->value = ft_substr(envp[0], len_env(envp[0]) + 1,
 			ft_strlen(envp[0]) - len_env(envp[0]) - 1);
+    env->aff = 1;
 	i = 0;
 	while (envp[++i])
 	{
@@ -152,6 +153,7 @@ t_env   *stock_env(char **envp)
 		new->name = ft_substr(envp[i], 0, len_env(envp[i]));
 		new->value = ft_substr(envp[i], len_env(envp[i]) + 1,
 				ft_strlen(envp[i]) - len_env(envp[i]) - 1);
+        new->aff = 1;
 		new->next = NULL;
 		env->next = new;
 		env = env->next;
