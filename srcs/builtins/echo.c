@@ -3,12 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 15:10:43 by nomoon            #+#    #+#             */
-/*   Updated: 2020/12/23 16:43:43 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/01/13 08:58:36 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../inc/minishell.h"
+#include <stdlib.h>
+#include "../libft/libft.h"
 
 #include "../inc/minishell.h"
 #include <stdlib.h>
@@ -24,12 +28,13 @@ static	int		nb_args(char **args)
 	return (size);
 }
 
-int				ft_echo(char **args)
+int				ft_echo(t_env *env, char **args)
 {
 	int		i;
 	int		n_option;
 
 	i = 1;
+
 	n_option = 0;
 	if (nb_args(args) > 1)
 	{

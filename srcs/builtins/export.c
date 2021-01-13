@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/10 18:36:16 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/13 11:13:31 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "../inc/minishell.h"
 #include "../libft/libft.h"
 
-int		check_name(char *str)
+int	check_name(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (str[0] == '=')
@@ -36,7 +36,7 @@ int		check_name(char *str)
 	return (1);
 }
 
-int		change_value(t_env *env, char *argv)
+int	change_value(t_env *env, char *argv)
 {
 	t_env	*tmp;
 	char	*compared_string;
@@ -49,7 +49,7 @@ int		change_value(t_env *env, char *argv)
 		{
 			free(compared_string);
 			free(tmp->value);
-			tmp->value = ft_substr(argv, len_env(argv) + 1, 
+			tmp->value = ft_substr(argv, len_env(argv) + 1,
 					ft_strlen(argv) - len_env(argv) - 1);
 			return (0);
 		}
@@ -59,7 +59,7 @@ int		change_value(t_env *env, char *argv)
 	return (1);
 }
 
-int		existing_name(t_env *env, char *argv)
+int	existing_name(t_env *env, char *argv)
 {
 	t_env	*tmp;
 	char	*compared_string;
@@ -79,7 +79,7 @@ int		existing_name(t_env *env, char *argv)
 	return (1);
 }
 
-int		export_check(t_env *env, char **argv)
+int	export_check(t_env *env, char **argv)
 {
 	int i;
 
@@ -99,17 +99,18 @@ int		export_check(t_env *env, char **argv)
 		{
 			if (existing_name(env, argv[i]) == 1)
 				export(env, count_argv(argv), argv[i]);
-			else if (existing_name(env, argv[i]) == 0 && check_name(argv[i]) == 0)
+			else if (existing_name(env, argv[i]) == 0
+				&& check_name(argv[i]) == 0)
 				change_value(env, argv[i]);
 		}
 	}
 	return (1);
 }
 
-int		export(t_env *env, int argc, char *argv)
+int	export(t_env *env, int argc, char *argv)
 {
-	t_env *tmp;
-	t_env *temp;
+	t_env	*tmp;
+	t_env	*temp;
 
 	tmp = env;
 	if (argc == 1)

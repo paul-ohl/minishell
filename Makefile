@@ -7,7 +7,9 @@ EXTLIB		= libft
 
 SRCS		= parser.c prompt.c utils.c parse_command.c interpret_string.c \
 			  environnement.c free.c error_handler.c get_executable_path.c \
-			  execute.c env.c export.c pwd.c execute_builtin.c unset.c echo.c
+			  execute.c execute_builtin.c builtins/env.c builtins/export.c \
+			  builtins/pwd.c execute_builtin.c builtins/unset.c builtins/echo.c \
+			  builtins/cd.c builtins/cd_utils.c
 
 # Compiler options
 CC			= gcc

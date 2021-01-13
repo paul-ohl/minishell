@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:16:15 by nomoon            #+#    #+#             */
-/*   Updated: 2020/12/14 14:18:01 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/01/13 11:11:39 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../libft/libft.h"
 #include <limits.h>
 
-int		ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	cwd[PATH_MAX];
 

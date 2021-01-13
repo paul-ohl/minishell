@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/10 17:17:03 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/13 09:05:29 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,16 @@ int     				export(t_env *env, int argc, char *argv);
 int						ft_pwd(void);
 int						builtin_exec(char *path, t_command *cmd, char **argv);
 int     				unset(t_env *env, char **argv);
-void					print_env_alhasort(t_env *env);
-int						ft_echo(char **args);
+int						print_env_alhasort(t_env *env);
+int						ft_echo(t_env *env, char **args);
 int						export_check(t_env *env, char **argv);
 char					**to_string_array(t_env *env);
 char					**free_envp(char **envp, int end);
+int						is_in_env(t_env *env, char *str);
+char					*get_oldpwd(t_env *env);
+int						update_oldpwd(t_env *env);
+int						update_pwd(t_env *env);
+int						ft_cd(char **args, t_env *env);
+int						change_value(t_env *env, char *argv);
 
 #endif

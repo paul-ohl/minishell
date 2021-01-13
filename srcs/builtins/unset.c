@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:02:14 by nomoon            #+#    #+#             */
-/*   Updated: 2020/12/21 18:09:03 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/01/13 11:11:23 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 #include "../inc/minishell.h"
 #include "../libft/libft.h"
 
-int		exist_check(t_env *env, char **argv)
+int	exist_check(t_env *env, char **argv)
 {
-	t_env *tmp;
-	t_env *prev;
-	int i;
+	t_env	*tmp;
+	t_env	*prev;
+	int		i;
 
 	i = 0;
 	prev = env;
@@ -31,7 +31,7 @@ int		exist_check(t_env *env, char **argv)
 	while (argv[++i])
 	{
 		tmp = env;
-		prev = env->next;   
+		prev = env->next;
 		while (prev->next)
 		{
 			if (!ft_strcmp(ft_substr(argv[i], 0, len_env(argv[i])), prev->name))
@@ -46,7 +46,7 @@ int		exist_check(t_env *env, char **argv)
 	return (1);
 }
 
-int		unset(t_env *env, char **argv)
-{   
+int	unset(t_env *env, char **argv)
+{
 	exist_check(env, argv);
 }
