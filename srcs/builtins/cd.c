@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 23:25:31 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/13 11:35:43 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 11:29:54 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,18 @@ char	*get_env_path(t_env *env, const char *var, size_t len)
 	return (NULL);
 }
 
+static int	go_to_patho1(char *env_path, t_env *env)
+{
+	int ret;
+	
+	ret = chdir(env_path);
+	update_pwd(env);
+	// ft_memdel(env_path);
+	return (ret);
+}
+
 static int	go_to_path(int option, t_env *env)
 {
-	int		ret;
 	char	*env_path;
 
 	env_path = NULL;
@@ -74,10 +83,7 @@ static int	go_to_path(int option, t_env *env)
 			return (1);
 		update_oldpwd(env);
 	}
-	ret = chdir(env_path);
-	update_pwd(env);
-	// ft_memdel(env_path);
-	return (ret);
+	return(go_to_patho1(env_path, env));
 }
 
 int	ft_cd(char **args, t_env *env)

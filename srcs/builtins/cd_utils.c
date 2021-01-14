@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:44:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/13 11:35:33 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 11:29:06 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	is_in_env(t_env *env, char *str)
 {
-    t_env	*tmp;
+	t_env	*tmp;
 
 	tmp = env;
 	while (tmp)

@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 15:10:43 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/14 08:55:43 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 11:29:40 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "../libft/libft.h"
 
-static	int		nb_args(char **args)
+static int	nb_args(char **args)
 {
 	int		size;
 
@@ -30,7 +30,6 @@ int				ft_echo(t_env *env, char **args)
 	int		n_option;
 
 	i = 1;
-
 	n_option = 0;
 	if (nb_args(args) > 1)
 	{
