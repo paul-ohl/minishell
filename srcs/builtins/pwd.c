@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:16:15 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/13 11:11:39 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 11:17:11 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	ft_pwd(void)
 	{
 		ft_putendl_fd(cwd, 1);
 		return (0);
-		printf("\npwd: %s\n", cwd);
 	}
 	else
 		return (1);

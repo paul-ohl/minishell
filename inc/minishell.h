@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/14 10:34:35 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 11:16:58 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # define GLOB_SUCCESS 0
 # define GLOB_ERR_MALLOC 1
 # define GLOB_CMD_LEN 2
-
-pid_t			g_fg_process;
-int				g_last_return;
 
 # include "debug.h"
 
