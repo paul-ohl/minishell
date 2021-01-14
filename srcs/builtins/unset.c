@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:02:14 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/13 11:11:23 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 10:14:57 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "../inc/minishell.h"
 #include "../libft/libft.h"
-
+ 
 int	exist_check(t_env *env, char **argv)
 {
 	t_env	*tmp;
@@ -24,7 +24,7 @@ int	exist_check(t_env *env, char **argv)
 	i = 0;
 	prev = env;
 	while (argv[++i])
-		if (!ft_strcmp(ft_substr(argv[i], 0, len_env(argv[i])), prev->name))
+		if (!ft_strcmp(argv[i], prev->name))
 			env = prev;
 	prev = prev->next;
 	i = 0;
@@ -34,7 +34,7 @@ int	exist_check(t_env *env, char **argv)
 		prev = env->next;
 		while (prev->next)
 		{
-			if (!ft_strcmp(ft_substr(argv[i], 0, len_env(argv[i])), prev->name))
+			if (!ft_strcmp(argv[i], prev->name))
 			{
 				tmp->next = prev->next;
 				break;

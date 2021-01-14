@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/13 09:05:29 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 10:34:35 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # define GLOB_SUCCESS 0
 # define GLOB_ERR_MALLOC 1
 # define GLOB_CMD_LEN 2
+
+pid_t			g_fg_process;
+int				g_last_return;
 
 # include "debug.h"
 
@@ -72,14 +75,14 @@ char					*get_env_str(char *str, t_env *env);
 int						ft_strcpy_free_input(char *dst, char *src, int to_free);
 int						is_builtin(char *path);
 t_env					*stock_env(char **envp);
-void    				print_env(t_env *env, int ind);
+void    				print_env(t_env *env);
 int     				len_env(char *str);
 int     				count_argv(char **argv);
 int     				export(t_env *env, int argc, char *argv);
 int						ft_pwd(void);
 int						builtin_exec(char *path, t_command *cmd, char **argv);
 int     				unset(t_env *env, char **argv);
-int						print_env_alhasort(t_env *env);
+int 					print_env_alphasort(t_env *env);
 int						ft_echo(t_env *env, char **args);
 int						export_check(t_env *env, char **argv);
 char					**to_string_array(t_env *env);
@@ -90,5 +93,6 @@ int						update_oldpwd(t_env *env);
 int						update_pwd(t_env *env);
 int						ft_cd(char **args, t_env *env);
 int						change_value(t_env *env, char *argv);
+int						existing_name(t_env *env, char *argv);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/13 11:13:31 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 10:19:28 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	export(t_env *env, int argc, char *argv)
 
 	tmp = env;
 	if (argc == 1)
-		print_env_alhasort(env);
+		print_env_alphasort(env);
 	else
 	{
 		while (tmp->next)
@@ -122,7 +122,7 @@ int	export(t_env *env, int argc, char *argv)
 		if (!(temp = malloc(sizeof(t_env))))
 			return (NULL);
 		if (check_name(argv) == 1)
-			temp->aff = 1;
+			temp->aff = 0;
 		temp->name = tmp->name;
 		temp->value = tmp->value;
 		tmp->name = ft_substr(argv, 0, len_env(argv));

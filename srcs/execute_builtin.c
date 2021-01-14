@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/13 10:43:01 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 10:35:26 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		builtin_exec(char *path, t_command *cmd, char **argv)
     else if (!ft_strcmp(path, "pwd") && count_argv(argv) > 1)
         ft_putstr_fd("pwd: too many arguments\n", 1);
     if (!ft_strcmp(path, "env"))
-        print_env(cmd->env, 0);
+        print_env(cmd->env);
     if (!ft_strcmp(path, "export"))
         export_check(cmd->env, argv);
     if (!ft_strcmp(path, "unset"))
