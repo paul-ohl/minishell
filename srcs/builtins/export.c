@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/14 10:19:28 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/14 11:09:06 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,12 @@ int	check_name(char *str)
 	if (str[0] == '=')
 		return (2);
 	while (str[++i] && str[i] != '=')
-	{
 		if (!ft_isalpha(str[i]))
 			return (2);
-	}
 	i = -1;
 	while (str[++i])
-	{
 		if (str[i] == '=')
 			return (0);
-	}
 	return (1);
 }
 
