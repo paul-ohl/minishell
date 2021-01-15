@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/14 11:07:10 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/15 08:35:57 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		start(int argc, char **argv, char **envp)
 
 int		main(int argc, char **argv, char **envp)
 {
+	// g_pid = -1;
 	/* return(start(argc, argv, envp)); */
 	start(argc, argv, envp);
 	system("leaks minishell");

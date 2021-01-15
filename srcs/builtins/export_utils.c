@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 08:45:28 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/14 11:42:02 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/15 08:36:33 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,8 @@ void    export_print(char **tab)
     i = -1;
     while (tab[++i])
     {
-        ft_putstr_fd("declare -x ", 1);
-        ft_putstr_fd(ft_substr(tab[i], 0, len_env(tab[i])), 1);
-        ft_putstr_fd("=", 1);
-        ft_putstr_fd("\"", 1);
-        ft_putstr_fd(ft_substr(tab[i], len_env(tab[i]) + 1,
-                ft_strlen(tab[i]) - len_env(tab[i]) - 1), 1);
-        ft_putstr_fd("\"", 1);
-        write(1, "\n", 1);
+        printf("declare -x %s=\"%s\"\n", ft_substr(tab[i], 0, len_env(tab[i])), ft_substr(tab[i], len_env(tab[i]) + 1,
+                ft_strlen(tab[i]) - len_env(tab[i]) - 1));
     }
 }
 

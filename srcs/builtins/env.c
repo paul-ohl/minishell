@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:53:18 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/14 11:37:00 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/15 08:36:26 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ void	print_env(t_env *env)
 	while (tmp)
 	{
 		if (tmp->aff == 1)
-		{
-			ft_putstr_fd(tmp->name, 1);
-			ft_putstr_fd("=", 1);
-			ft_putstr_fd(tmp->value, 1);
-			write(1, "\n", 1);
-		}
+			printf("%s=%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}
 }

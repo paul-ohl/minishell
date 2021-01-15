@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 23:25:31 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/14 11:29:54 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/15 10:43:11 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static int	go_to_patho1(char *env_path, t_env *env)
 	
 	ret = chdir(env_path);
 	update_pwd(env);
+	free(env_path);
 	// ft_memdel(env_path);
 	return (ret);
 }
