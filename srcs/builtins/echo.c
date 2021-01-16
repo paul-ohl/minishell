@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 15:10:43 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/14 11:29:40 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/16 11:16:04 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,17 @@ int				ft_echo(t_env *env, char **args)
 	n_option = 0;
 	if (nb_args(args) > 1)
 	{
-		while (args[i++] && ft_strcmp(args[i], "-n") == 0)
+		while (args[i] && ft_strcmp(args[i], "-n") == 0)
+		{
 			n_option = 1;
-		while (args[i++])
+			i++;
+		}
+		while (args[i])
 		{
 			ft_putstr_fd(args[i], 1);
 			if (args[i + 1] && args[i][0] != '\0')
 				write(1, " ", 1);
+			i++;
 		}
 	}
 	if (n_option == 0)
