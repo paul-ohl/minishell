@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 07:19:55 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/10 16:50:41 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/17 13:26:54 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	dup_selector(int to_dup[2], t_command *command, int new_pipe_out)
 {
 	to_dup[0] = 0;
 	to_dup[1] = 1;
+	/* printf("type_in: %c\n", command->type_in); */
 	if (command->type_in == '|')
 		to_dup[0] = command->pipe_fd[0];
 	else if (command->type_in == '<')
@@ -73,7 +74,11 @@ int		slave_action(int to_dup[2], t_command *cmd, char *path, char **argv)
 		close_pipe(cmd->pipe_fd);
 	if (!(envp = to_string_array(cmd->env)))
 		return (-1);
-	execve(path, argv, envp);
+	if (execve(path, argv, envp))
+	{
+		printf("Prob: %s\n", strerror(errno));
+		exit(1);
+	}
 	return (0);
 }
 

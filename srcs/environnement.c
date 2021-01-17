@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 16:00:45 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/10 17:16:44 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/17 13:14:24 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,12 @@ char	**to_string_array(t_env *env)
 	i = 0;
 	while (tmp)
 	{
-		if (tmp->aff == 0)
-		{
-			if (!(envp[i] = malloc(sizeof(envp[i]) * ft_strlen(tmp->name) + ft_strlen(tmp->value) + 2)))
-				return (free_envp(envp, i));
-			name_len = ft_strcpy(envp[i], tmp->name);
-			envp[i][name_len] = '=';
-			ft_strcpy(envp[i] + name_len + 1, tmp->value);
-			i++;
-		}
+		if (!(envp[i] = malloc(sizeof(envp[i]) * ft_strlen(tmp->name) + ft_strlen(tmp->value) + 2)))
+			return (free_envp(envp, i));
+		name_len = ft_strcpy(envp[i], tmp->name);
+		envp[i][name_len] = '=';
+		ft_strcpy(envp[i] + name_len + 1, tmp->value);
+		i++;
 		tmp = tmp->next;
 	}
 	return (envp);
