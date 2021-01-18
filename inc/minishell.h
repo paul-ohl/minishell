@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/15 08:35:49 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/18 16:57:33 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void    				print_env(t_env *env);
 int     				len_env(char *str);
 int     				count_argv(char **argv);
 int     				export(t_env *env, int argc, char *argv);
-int						ft_pwd(void);
+int						ft_pwd(t_env *env);
 int						builtin_exec(char *path, t_command *cmd, char **argv);
 int     				unset(t_env *env, char **argv);
 int 					print_env_alphasort(t_env *env);
