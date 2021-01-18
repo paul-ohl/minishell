@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 07:19:55 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/18 17:23:18 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/18 18:17:17 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	dup_selector(int to_dup[2], t_command *command, int new_pipe_out)
 {
 	to_dup[0] = 0;
 	to_dup[1] = 1;
-	/* printf("type_in: %c\n", command->type_in); */
+	/* printf("type_in: %c\ntype_out: %c\n", command->type_in, command->type_out); */
 	if (command->type_in == '|')
 		to_dup[0] = command->pipe_fd[0];
 	else if (command->type_in == '<')
@@ -74,11 +74,15 @@ int		slave_action(int to_dup[2], t_command *cmd, char *path, char **argv)
 		close_pipe(cmd->pipe_fd);
 	if (!(envp = to_string_array(cmd->env)))
 		return (-1);
-	if (execve(path, argv, envp))
+	if (is_builtin(path))
+	{
+		builtin_handler(path, cmd, argv);
+	}
+	else if (execve(path, argv, envp))
 	{
 		printf("Prob: %s\n", strerror(errno));
-		exit(1);
 	}
+	exit(1);
 	return (0);
 }
 
@@ -88,8 +92,6 @@ int		execute(char *path, t_command *cmd, char **argv)
 	int		new_pipe[2];
 	pid_t	pid;
 
-	if (is_builtin(path))
-		return (builtin_handler(path, cmd, argv));
 	if ((cmd->type_out == '|' || cmd->pipe == PIPE_YES) && pipe(new_pipe))
 		return (-1);
 	if ((pid = fork()) < 0)
