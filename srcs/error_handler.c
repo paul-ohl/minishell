@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:11:39 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/10 17:13:14 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/19 12:23:07 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@
 #define SYN_ERR_SEMICOL 6
 #define SYN_ERR_REDIR 7
 
-int	check_redirect(char *str, int i)
+int	check_redirect(char *str, int i, int *err)
 {
 	if (str[i] != '>' && str[i] != '<')
-		return (SYNTAX_CLEAR);
+		return (*err = SYNTAX_CLEAR);
 	if (str[i++] == '>' && str[i] == '>')
 		i++;
 	while (str[i] == ' ')
 		i++;
 	if (ft_strchr("><;|", str[i]))
-		return (SYN_ERR_REDIR);
-	return (SYNTAX_CLEAR);
+		return (*err = SYN_ERR_REDIR);
+	return (*err = SYNTAX_CLEAR);
 }
 
-int check_quotes(char *str, int i)
+int	check_quotes(char *str, int i)
 {
 	char	to_skip;
 
@@ -48,55 +48,57 @@ int check_quotes(char *str, int i)
 		return (i);
 }
 
-int check_cmd_separators(char *str, int i)
+int	check_cmd_separators(char *str, int i, int *err)
 {
 	char	current_char;
 
 	current_char = str[i];
 	if (current_char != '|' && current_char != ';')
-		return (SYNTAX_CLEAR);
+		return (*err = SYNTAX_CLEAR);
 	if (current_char == '|' && str[i + 1] == '|')
-		return (SYN_NO_SUP_OR);
+		return (*err = SYN_NO_SUP_OR);
 	i++;
 	while (str[i] == ' ')
 		i++;
-	if (str[i] == '|' || str[i] == ';')
-		return (current_char == ';' ? SYN_ERR_SEMICOL : SYN_ERR_PIPE);
+	if (str[i] == '|')
+		return (*err = SYN_ERR_PIPE);
+	if (str[i] == ';')
+		return (*err = SYN_ERR_SEMICOL);
 	else if (current_char == '|' && !str[i])
-		return (SYN_ERR_PIPE);
-	return (SYNTAX_CLEAR);
+		return (*err = SYN_ERR_PIPE);
+	return (*err = SYNTAX_CLEAR);
 }
 
-int basic_syntax_check(char *str)
+int	basic_syntax_check(char *str, int *err)
 {
 	int		i;
-	int		err;
 
 	i = 0;
 	while (str[i] == ' ')
 		str++;
-	if (str[i] == '|' || str[i] == ';')
-		return (str[i] == '|' ? SYN_ERR_PIPE : SYN_ERR_SEMICOL);
-	if (!str[i--])
-		return (SYNTAX_CLEAR);
+	if (str[i] == '|')
+		return (*err = SYN_ERR_PIPE);
+	if (str[i] == ';')
+		return (*err = SYN_ERR_SEMICOL);
+	i--;
 	while (str[++i])
 	{
 		if (str[i] == '\\' && !str[i + 1])
-			return (SYN_ERR_BKSL);
+			return (*err = SYN_ERR_BKSL);
 		else if (str[i] == '\\')
 			i++;
 		else if ((i = check_quotes(str, i)) == -1)
-			return (SYN_ERR_QUOT);
-		else if ((err = check_cmd_separators(str, i)) ||
-				(err = check_redirect(str, i)))
-			return (err);
+			return (*err = SYN_ERR_QUOT);
+		else if (check_cmd_separators(str, i, err)
+			|| check_redirect(str, i, err))
+			return (*err);
 		else if (str[i] == '&' && str[i + 1] == '&')
-			return (SYN_NO_SUP_AND);
+			return (*err = SYN_NO_SUP_AND);
 	}
-	return (SYNTAX_CLEAR);
+	return (*err = SYNTAX_CLEAR);
 }
 
-void print_syntax_error(int err)
+void	print_syntax_error(int err)
 {
 	ft_putstr_fd("Minishell error: ", 2);
 	if (err == SYN_ERR_QUOT)
@@ -117,7 +119,7 @@ void print_syntax_error(int err)
 		ft_putstr_fd("Error code unknown.\n", 2);
 }
 
-void print_parser_error(int err, t_command *command)
+void	print_parser_error(int err, t_command *command)
 {
 	ft_putstr_fd("Minishell error: ", 2);
 	if (err == 2 && command->return_value)

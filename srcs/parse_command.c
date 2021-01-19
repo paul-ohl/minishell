@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 14:18:44 by pohl              #+#    #+#             */
-/*   Updated: 2020/11/27 10:20:16 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/19 12:04:56 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int		reached_end_of_word(char *str, int i)
+int	reached_end_of_word(char *str, int i)
 {
 	if (str[i] == ' ' || str[i] == 0)
 		return (1);
@@ -29,7 +29,7 @@ int		reached_end_of_word(char *str, int i)
 	return (0);
 }
 
-int		get_fd(char *redirection, char type, t_command *command)
+int	get_fd(char *redirection, char type, t_command *command)
 {
 	int		flags;
 	int		fd;
@@ -52,7 +52,7 @@ int		get_fd(char *redirection, char type, t_command *command)
 	return (fd);
 }
 
-int		get_redirect(t_command *command, int *i)
+int	get_redirect(t_command *command, int *i)
 {
 	int		tmp;
 	char	type;
@@ -81,7 +81,7 @@ int		get_redirect(t_command *command, int *i)
 	return (1);
 }
 
-int		increment_variables(char *str, int *i)
+int	increment_variables(char *str, int *i)
 {
 	while (str[*i] == ' ' && str[*i + 1] == ' ')
 		(*i)++;

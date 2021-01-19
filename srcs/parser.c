@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/19 11:24:07 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/19 12:03:53 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** arg_count counts the number of arguments in a command.
 */
 
-int			arg_count(char *str)
+int	arg_count(char *str)
 {
 	int		i;
 	int		count;
@@ -48,7 +48,7 @@ int			arg_count(char *str)
 	return (count);
 }
 
-void		reinit_struct(t_command *command)
+void	reinit_struct(t_command *command)
 {
 	command->cmd = NULL;
 	command->type_in = (command->pipe == PIPE_YES) ? '|' : ';';
@@ -58,7 +58,7 @@ void		reinit_struct(t_command *command)
 	set_redirect(command, '>', 1);
 }
 
-int			get_next_command(t_command *command, char *buffer)
+int	get_next_command(t_command *command, char *buffer)
 {
 	static int	i = 0;
 	int			start;
@@ -87,7 +87,7 @@ int			get_next_command(t_command *command, char *buffer)
 	return (1);
 }
 
-int			parser(char *buffer, t_command *command)
+int	parser(char *buffer, t_command *command)
 {
 	int			argc;
 	char		*executable_path;
@@ -105,7 +105,7 @@ int			parser(char *buffer, t_command *command)
 		else if (execute(executable_path, command, argv))
 			printf("error: %s\n", strerror(errno));
 		else if (!ft_strcmp(argv[0], "exit")
-				&& (argv = free_argv(argv, argc, executable_path)) == 0)
+			&& (argv = free_argv(argv, argc, executable_path)) == 0)
 			return (1);
 		argv = free_argv(argv, argc, executable_path);
 		argc = 0;

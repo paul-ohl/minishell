@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/18 16:57:33 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/19 12:12:19 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ char					**parse_command(t_command *cmd, int argc);
 char					*get_word(t_command *cmd, int st, int end);
 char					*get_env(t_command *cmd, int *i);
 char					**free_argv(char **argv, int argc, char *exec_path);
-int						basic_syntax_check(char *str);
+int						basic_syntax_check(char *str, int *err);
 void					print_syntax_error(int err);
 void					print_parser_error(int err, t_command *command);
-t_command				*init_struct(char **envp);
+int						init_struct(char **envp, t_command **command);
 void					set_redirect(t_command *command, char type, int fd);
 void					reset_fds(t_command *command);
 char					*get_executable_path(char *program_name, t_env *env);

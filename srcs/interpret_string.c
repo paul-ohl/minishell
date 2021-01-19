@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 14:37:47 by pohl              #+#    #+#             */
-/*   Updated: 2020/11/27 12:17:38 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/19 12:05:23 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-int		env_len(t_command *command, int *start)
+int	env_len(t_command *command, int *start)
 {
 	int		env_variable_len;
 	char	*env_var;
@@ -27,7 +27,7 @@ int		env_len(t_command *command, int *start)
 	return (env_variable_len);
 }
 
-int		fill_single_quotes(char *input, char *output, int *i)
+int	fill_single_quotes(char *input, char *output, int *i)
 {
 	int		tmp;
 	int		return_value;
@@ -64,7 +64,7 @@ void	fill_str(char *output, t_command *command, int *start_end)
 	}
 }
 
-int		get_processed_len(t_command *command, int start, int end)
+int	get_processed_len(t_command *command, int start, int end)
 {
 	int		processed_len;
 	int		tmp;
@@ -75,9 +75,9 @@ int		get_processed_len(t_command *command, int start, int end)
 	while (start < end && command->cmd[start])
 	{
 		if (command->cmd[start] == '\'' && !inside_quotes
-				&& (tmp = skip_quote(command->cmd, start))
-				&& command->cmd[tmp] == '\''
-				&& (processed_len += tmp - start - 2) != -7)
+			&& (tmp = skip_quote(command->cmd, start))
+			&& command->cmd[tmp] == '\''
+			&& (processed_len += tmp - start - 2) != -7)
 			start = tmp;
 		else if (command->cmd[start] == '"' && (processed_len--) != -42)
 			inside_quotes = !inside_quotes;

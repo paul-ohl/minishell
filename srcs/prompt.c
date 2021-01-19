@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/18 18:55:01 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/19 11:55:35 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-int		print_prompt(char *buf)
+int	print_prompt(char *buf)
 {
 	int		n;
 
@@ -27,7 +27,7 @@ int		print_prompt(char *buf)
 	return (n);
 }
 
-int		exit_return(char *buf, t_command *command)
+int	exit_return(char *buf, t_command *command)
 {
 	int		exit_value;
 	t_env	*tmp;
@@ -48,7 +48,7 @@ int		exit_return(char *buf, t_command *command)
 	return (exit_value);
 }
 
-int		start(int argc, char **argv, char **envp)
+int	start(int argc, char **argv, char **envp)
 {
 	char		*buf;
 	int			err;
@@ -58,13 +58,13 @@ int		start(int argc, char **argv, char **envp)
 	argv = NULL;
 	if (!(buf = (char *)malloc(sizeof(*buf) * MAX_CMD_LEN)))
 		return (GLOB_ERR_MALLOC);
-	if (!(command = init_struct(envp)))
+	if (!init_struct(envp, &command))
 		return (GLOB_ERR_MALLOC);
 	while (1)
 	{
 		if (!print_prompt(buf))
 			return (GLOB_CMD_LEN);
-		if ((err = basic_syntax_check(buf)))
+		if (basic_syntax_check(buf, &err))
 			print_syntax_error(err);
 		else if ((err = parser(buf, command)) == 1)
 			return (exit_return(buf, command));
@@ -74,9 +74,9 @@ int		start(int argc, char **argv, char **envp)
 	return (0);
 }
 
-int		main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	return(start(argc, argv, envp));
+	return (start(argc, argv, envp));
 	start(argc, argv, envp);
 	system("leaks minishell");
 }

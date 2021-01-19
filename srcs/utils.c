@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 15:21:50 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/10 15:45:03 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/19 12:11:34 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 ** buffer + i => " text after
 */
 
-int			skip_quote(char *buffer, int i)
+int	skip_quote(char *buffer, int i)
 {
 	char	to_skip;
 
@@ -52,7 +52,7 @@ int			skip_quote(char *buffer, int i)
 ** buffer + i =>     other text
 */
 
-int			skip_redirect(char *buffer, int i)
+int	skip_redirect(char *buffer, int i)
 {
 	i++;
 	if (buffer[i] == '>')
@@ -70,24 +70,22 @@ int			skip_redirect(char *buffer, int i)
 	return (i);
 }
 
-t_command	*init_struct(char **envp)
+int	init_struct(char **envp, t_command **command)
 {
-	t_command	*command;
-
-	if (!(command = malloc(sizeof(t_command))))
+	if (!(*command = malloc(sizeof(t_command))))
 		return (0);
-	command->cmd = NULL;
-	command->fd_in = 0;
-	command->fd_out = 1;
-	command->type_in = ';';
-	command->type_out = ';';
-	command->pipe = PIPE_NO;
-	command->return_value = 0;
-	command->env = stock_env(envp);
-	return (command);
+	(*command)->cmd = NULL;
+	(*command)->fd_in = 0;
+	(*command)->fd_out = 1;
+	(*command)->type_in = ';';
+	(*command)->type_out = ';';
+	(*command)->pipe = PIPE_NO;
+	(*command)->return_value = 0;
+	(*command)->env = stock_env(envp);
+	return (1);
 }
 
-void		set_redirect(t_command *command, char type, int redirect_fd)
+void	set_redirect(t_command *command, char type, int redirect_fd)
 {
 	if (type == '<')
 	{
@@ -103,7 +101,7 @@ void		set_redirect(t_command *command, char type, int redirect_fd)
 	}
 }
 
-int			ft_strcpy_free_input(char *dst, char *src, int to_free)
+int	ft_strcpy_free_input(char *dst, char *src, int to_free)
 {
 	int		i;
 
