@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/10 15:31:27 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/19 11:24:07 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			arg_count(char *str)
 		if (str[i] == '>' || str[i] == '<')
 		{
 			i = skip_redirect(str, i);
-			while (str[i + 1] == ' ')
+			while (str[i] && str[i + 1] == ' ')
 				i++;
 		}
 		if (str[i] == ' ' && !ft_strchr("<> ", str[i + 1]))
@@ -42,7 +42,8 @@ int			arg_count(char *str)
 		i = skip_quote(str, i);
 		if (str[i] == '\\' && str[i + 1])
 			i++;
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (count);
 }
