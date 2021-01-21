@@ -6,11 +6,11 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:53:47 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/12 19:11:19 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 08:59:05 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	unsigned int	i;
 	unsigned long	result;

@@ -6,7 +6,7 @@
 /*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 09:46:23 by paulohl           #+#    #+#             */
-/*   Updated: 2020/11/09 09:48:21 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/21 10:05:15 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 ** It returns a NULL-terminated string.
 */
 
-char		*ft_strndup(char *str, int len)
+char	*ft_strndup(char *str, int len)
 {
 	char	*result;
 
-	if (!(result = (char *)malloc(sizeof(result) * len + 1)))
+	result = (char *)malloc(sizeof(result) * len + 1);
+	if (!result)
 		return (NULL);
 	result = ft_memcpy(result, str, len);
 	result[len] = 0;

@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 11:13:54 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/15 10:58:51 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 09:22:05 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	num_of_char(int n)
 	return (i);
 }
 
-void		ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	char			buffer[42];
 	unsigned int	num;

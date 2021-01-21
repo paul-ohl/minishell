@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:19:52 by paulohl           #+#    #+#             */
-/*   Updated: 2020/12/23 15:25:01 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/01/21 08:47:44 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_concat(char *str1, char *str2, char separator)
 	return (result);
 }
 
-int		is_builtin(char *path)
+int	is_builtin(char *path)
 {
 	if (!ft_strcmp(path, "exit"))
 		return (1);
@@ -62,7 +62,7 @@ int		is_builtin(char *path)
 	return (0);
 }
 
-int		is_file_executable(char *path)
+int	is_file_executable(char *path)
 {
 	struct stat	buffer;
 

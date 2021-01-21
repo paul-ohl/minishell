@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 10:27:32 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/09 10:53:52 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 10:04:11 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	i = 0;
 	while (s[i])
 		i++;
-	if ((buffer = (char*)malloc(i + 1)) == NULL)
+	buffer = (char*)malloc(i + 1);
+	if (!buffer)
 		return (0);
 	i = 0;
 	while (s[i])

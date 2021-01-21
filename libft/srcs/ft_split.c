@@ -6,15 +6,16 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:23:38 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/11 12:31:47 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 09:55:48 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 
 static int	free_mallocs(char **buffer, int *size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (buffer[i])
@@ -29,8 +30,8 @@ static int	free_mallocs(char **buffer, int *size)
 
 static int	ft_nbword(char const *s, char c)
 {
-	int i;
-	int nbword;
+	int	i;
+	int	nbword;
 
 	i = 0;
 	nbword = 0;
@@ -45,14 +46,14 @@ static int	ft_nbword(char const *s, char c)
 
 static int	*fill_size(char const *s, char c)
 {
-	int i;
-	int j;
-	int *size;
-	int nbword;
+	int	i;
+	int	j;
+	int	*size;
+	int	nbword;
 
 	i = 0;
 	nbword = ft_nbword(s, c);
-	if (!(size = malloc(sizeof(int) * nbword)))
+	if (did_malloc_fail((void *)&size, sizeof(int) * nbword))
 		return (NULL);
 	while (i <= nbword)
 	{
@@ -86,7 +87,7 @@ static int	create_tab(char const *s, char c, char **tab, int *size)
 		if (s[i] != c)
 		{
 			if (i == 0 || (s[i] != c && s[i - 1] == c))
-				if (!(tab[j] = malloc(sizeof(char) * (size[j] + 1))))
+				if (did_malloc_fail((void *)&tab[j], (size[j] + 1)))
 					return (free_mallocs(tab, size));
 			tab[j][k] = s[i];
 			tab[j][++k] = '\0';
@@ -97,12 +98,12 @@ static int	create_tab(char const *s, char c, char **tab, int *size)
 	return (1);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**tab;
 	int		*size;
 
-	if (!(tab = malloc(sizeof(char *) * (ft_nbword(s, c) + 1))))
+	if (did_malloc_fail((void *)&tab, sizeof(char *) * (ft_nbword(s, c) + 1)))
 		return (NULL);
 	size = fill_size(s, c);
 	if (!create_tab(s, c, tab, size))

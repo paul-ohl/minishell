@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 16:03:56 by pohl              #+#    #+#             */
-/*   Updated: 2020/01/18 21:26:29 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 09:12:42 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ static int	num_of_char(int n)
 	return (i);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int				i;
 	unsigned int	num;
 	char			*buffer;
 
-	if ((buffer = (char *)malloc(num_of_char(n) + 1)) == NULL)
+	buffer = (char *)malloc(num_of_char(n) + 1);
+	if (!buffer)
 		return (0);
 	i = num_of_char(n);
 	num = n;

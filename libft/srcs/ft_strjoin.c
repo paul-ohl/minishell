@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 14:09:08 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/08 14:34:37 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 09:59:36 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	while (s2[j])
 		j++;
-	if ((buffer = (char *)malloc(i + j + 1)) == NULL)
+	buffer = (char *)malloc(i + j + 1);
+	if (buffer)
 		return (0);
 	j = -1;
 	while (s1[++j])

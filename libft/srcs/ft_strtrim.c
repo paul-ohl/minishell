@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 14:51:37 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/15 11:08:57 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 10:08:18 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	is_in_set(char c, char const *set)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (set[i])
@@ -27,7 +27,7 @@ static int	is_in_set(char c, char const *set)
 	return (0);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		start;
 	int		end;
@@ -35,7 +35,10 @@ char		*ft_strtrim(char const *s1, char const *set)
 	char	*buffer;
 
 	start = 0;
-	end = (!ft_strlen(s1)) ? 0 : ft_strlen(s1) - 1;
+	if (!ft_strlen(s1))
+		end = 0;
+	else
+		end = ft_strlen(s1) - 1;
 	while (is_in_set(s1[start], set))
 		start++;
 	while (is_in_set(s1[end], set) && end > 0)
@@ -44,7 +47,7 @@ char		*ft_strtrim(char const *s1, char const *set)
 		start = end;
 	else
 		end++;
-	if ((buffer = (char *)malloc(end - start + 1)) == NULL)
+	if (did_malloc_fail((void *)&buffer, end - start + 1))
 		return (0);
 	i = -1;
 	while (++i + start < end)

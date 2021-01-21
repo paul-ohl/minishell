@@ -6,13 +6,13 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 13:20:55 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/25 19:58:34 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 10:05:40 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*ft_strrchr(const char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])

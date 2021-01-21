@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 14:02:15 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/10 16:32:07 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 10:09:29 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ char	*ft_substr(char const *string, unsigned int start, size_t len)
 	string_len = ft_strlen(string);
 	if (start >= string_len)
 	{
-		if (!(result = malloc(sizeof(string))))
+		result = malloc(sizeof(string));
+		if (!result)
 			return (NULL);
 		result[0] = 0;
 		return (result);
 	}
-	if (!(result = malloc(sizeof(string) * ft_strlen(string + start) + 1)))
+	result = malloc(sizeof(string) * ft_strlen(string + start) + 1);
+	if (!result)
 		return (NULL);
 	i = -1;
 	while (++i < len && string[start + i])
@@ -38,19 +40,3 @@ char	*ft_substr(char const *string, unsigned int start, size_t len)
 	result[i] = 0;
 	return (result);
 }
-
-// #include <stdio.h>
-
-// int		start(void)
-// {
-// 	char *testest = ft_substr("char const *s", 2, 112);
-// 	printf("%p, %s\n", testest, testest);
-// 	free(testest);
-// 	return (0);
-// }
-
-// int		main(void)
-// {
-// 	start();
-// 	system("leaks useless");
-// }

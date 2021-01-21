@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   did_malloc_fail.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 12:37:37 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/21 10:10:02 by paulohl          ###   ########.fr       */
+/*   Created: 2021/01/21 08:49:40 by paulohl           #+#    #+#             */
+/*   Updated: 2021/01/21 08:56:45 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_toupper(int c)
+#include <stdlib.h>
+
+int	did_malloc_fail(void *buffer, size_t size)
 {
-	if (c >= 'a' && c <= 'z')
-	{
-		c -= 32;
-	}
-	return (c);
+	buffer = malloc(size);
+	if (!buffer)
+		return (0);
+	else
+		return (1);
 }

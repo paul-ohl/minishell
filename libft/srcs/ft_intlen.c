@@ -6,13 +6,13 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:35:34 by pohl              #+#    #+#             */
-/*   Updated: 2020/03/02 12:46:25 by pohl             ###   ########.fr       */
+/*   Updated: 2021/01/21 09:11:11 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_intlen(int nbr)
+int	ft_intlen(int nbr)
 {
-	int int_len;
+	int	int_len;
 
 	int_len = 0;
 	if (nbr < 0)
