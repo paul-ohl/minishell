@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:52:39 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/21 09:21:17 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/21 10:22:28 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,21 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 
 	i = 0;
 	if (dst > src)
+	{
 		while (i < len)
 		{
 			((unsigned char *)dst)[len - 1 - i] = ((unsigned char *)src)
 				[len - 1 - i];
 			i++;
 		}
+	}
 	else
+	{
 		while (i < len)
 		{
 			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
 			i++;
 		}
+	}
 	return (dst);
 }
