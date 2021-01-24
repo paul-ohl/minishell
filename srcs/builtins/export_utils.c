@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 08:45:28 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/15 08:36:33 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/24 10:04:43 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ int print_env_alphasort(t_env *env)
         tmp = tmp->next;
     }
     sort_tab(tab, env_size(env));
+    return (1);
 }

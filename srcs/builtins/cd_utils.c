@@ -6,15 +6,12 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:44:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/14 11:29:06 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/24 09:38:52 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-#include <stdlib.h>
-#include "../libft/libft.h"
-#include <limits.h>
-#include <stdio.h>
+#include "minishell.h"
+#include "libft.h"
 
 int	is_in_env(t_env *env, char *str)
 {

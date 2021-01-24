@@ -6,13 +6,14 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 15:10:43 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/16 11:16:04 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/24 10:01:17 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include <stdlib.h>
 #include "../libft/libft.h"
+#include <unistd.h>
 
 static int	nb_args(char **args)
 {
@@ -24,7 +25,7 @@ static int	nb_args(char **args)
 	return (size);
 }
 
-int				ft_echo(t_env *env, char **args)
+int				ft_echo(char **args)
 {
 	int		i;
 	int		n_option;

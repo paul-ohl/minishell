@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 23:25:31 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/15 10:43:11 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/24 09:35:35 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../libft/libft.h"
 #include <limits.h>
 #include <stdio.h>
+#include <string.h>
 
 static void	print_error(char **args)
 {
