@@ -6,13 +6,18 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/21 10:20:12 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/25 10:09:56 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <limits.h>
 # define MAX_CMD_LEN 262144
 # define PIPE_YES 'y'
 # define PIPE_NO 'n'
@@ -78,7 +83,7 @@ int		ft_pwd(t_env *env);
 int		builtin_exec(char *path, t_command *cmd, char **argv);
 int		unset(t_env *env, char **argv);
 int		print_env_alphasort(t_env *env);
-int		ft_echo(t_env *env, char **args);
+int		ft_echo(char **args);
 int		export_check(t_env *env, char **argv);
 char	**to_string_array(t_env *env);
 char	**free_envp(char **envp, int end);
