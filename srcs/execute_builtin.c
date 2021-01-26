@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/18 17:42:43 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/26 10:39:23 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		builtin_exec(char *path, t_command *cmd, char **argv)
 	if (!ft_strcmp(path, "unset"))
 		unset(cmd->env, argv);
 	if (!ft_strcmp(path, "echo"))
-		ft_echo(cmd->env, argv);
+		ft_echo(argv);
 	if (!ft_strcmp(path, "cd"))
 	{
 		ft_cd(argv, cmd->env);
