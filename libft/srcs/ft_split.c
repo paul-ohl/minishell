@@ -6,12 +6,11 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:23:38 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/21 09:55:48 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/26 12:05:16 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
 
 static int	free_mallocs(char **buffer, int *size)
 {
@@ -51,15 +50,13 @@ static int	*fill_size(char const *s, char c)
 	int	*size;
 	int	nbword;
 
-	i = 0;
 	nbword = ft_nbword(s, c);
-	if (did_malloc_fail((void *)&size, sizeof(int) * nbword))
+	size = malloc(sizeof(int) * nbword);
+	if (!size)
 		return (NULL);
-	while (i <= nbword)
-	{
+	i = -1;
+	while (++i <= nbword)
 		size[i] = 0;
-		i++;
-	}
 	i = 0;
 	j = 0;
 	while (s[i])
@@ -87,8 +84,11 @@ static int	create_tab(char const *s, char c, char **tab, int *size)
 		if (s[i] != c)
 		{
 			if (i == 0 || (s[i] != c && s[i - 1] == c))
-				if (did_malloc_fail((void *)&tab[j], (size[j] + 1)))
+			{
+				tab[j] = malloc(sizeof(char) * (size[j] + 1));
+				if (!tab[j])
 					return (free_mallocs(tab, size));
+			}
 			tab[j][k] = s[i];
 			tab[j][++k] = '\0';
 		}
@@ -103,7 +103,8 @@ char	**ft_split(char const *s, char c)
 	char	**tab;
 	int		*size;
 
-	if (did_malloc_fail((void *)&tab, sizeof(char *) * (ft_nbword(s, c) + 1)))
+	tab = malloc(sizeof(char *) * (ft_nbword(s, c) + 1));
+	if (!tab)
 		return (NULL);
 	size = fill_size(s, c);
 	if (!create_tab(s, c, tab, size))

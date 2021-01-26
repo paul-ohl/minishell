@@ -6,11 +6,10 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:19:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/21 08:47:44 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/26 12:09:25 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 #include "libft.h"

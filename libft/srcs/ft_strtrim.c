@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 14:51:37 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/21 10:08:18 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/26 12:08:29 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		start = end;
 	else
 		end++;
-	if (did_malloc_fail((void *)&buffer, end - start + 1))
+	if (!(buffer = malloc(end - start + 1)))
 		return (0);
 	i = -1;
 	while (++i + start < end)
