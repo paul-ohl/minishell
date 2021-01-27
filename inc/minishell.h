@@ -6,13 +6,14 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/25 10:09:56 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/27 12:15:42 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -94,5 +95,7 @@ int		update_pwd(t_env *env);
 int		ft_cd(char **args, t_env *env);
 int		change_value(t_env *env, char *argv);
 int		existing_name(t_env *env, char *argv);
+bool	builtin_handler(char *path, t_command *cmd, char **argv);
+void	dup_selector(int to_dup[2], t_command *command, int new_pipe_out);
 
 #endif

@@ -3,57 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 07:19:55 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/18 18:17:17 by paulohl          ###   ########.fr       */
+/*   Created: 2021/01/27 11:31:25 by paulohl           #+#    #+#             */
+/*   Updated: 2021/01/27 16:07:30 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <fcntl.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-
-int		builtin_handler(char *path, t_command *cmd, char **argv)
-{
-	int		i;
-
-	if (!ft_strcmp(path, "exit"))
-	{
-		i = 0;
-		while (argv[i])
-			i++;
-		if (i == 1)
-			cmd->return_value = 1;
-		else if (i == 2)
-		{
-			i = 0;
-			while (is_whitespace(argv[1][i]))
-				i++;
-			cmd->return_value = ft_isdigit(argv[1][i]) ? ft_atoi(argv[1]) : 255;
-		}
-		else if ((cmd->return_value = 7) == 7)
-			return ((errno = cmd->return_value));
-	}
-	builtin_exec(path, cmd, argv);
-	return (0);
-}
-
-void	close_pipe(int pipe_fd[2])
-{
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
-}
+#include <string.h>
 
 void	dup_selector(int to_dup[2], t_command *command, int new_pipe_out)
 {
 	to_dup[0] = 0;
 	to_dup[1] = 1;
-	/* printf("type_in: %c\ntype_out: %c\n", command->type_in, command->type_out); */
 	if (command->type_in == '|')
 		to_dup[0] = command->pipe_fd[0];
 	else if (command->type_in == '<')
@@ -71,44 +34,53 @@ int		slave_action(int to_dup[2], t_command *cmd, char *path, char **argv)
 	dup2(to_dup[0], 0);
 	dup2(to_dup[1], 1);
 	if (cmd->type_in == '|')
-		close_pipe(cmd->pipe_fd);
-	if (!(envp = to_string_array(cmd->env)))
-		return (-1);
-	if (is_builtin(path))
 	{
-		builtin_handler(path, cmd, argv);
+		close(cmd->pipe_fd[0]);
+		close(cmd->pipe_fd[1]);
 	}
+	envp = to_string_array(cmd->env);
+	if (!envp)
+		return (false);
 	else if (execve(path, argv, envp))
-	{
-		printf("Prob: %s\n", strerror(errno));
-	}
+		printf("Problem: %s\n", strerror(errno));
 	exit(1);
-	return (0);
+	return (true);
 }
 
-int		execute(char *path, t_command *cmd, char **argv)
+bool	program_handler(char *path, t_command *cmd, char **argv)
 {
 	int		to_dup[2];
 	int		new_pipe[2];
 	pid_t	pid;
 
 	if ((cmd->type_out == '|' || cmd->pipe == PIPE_YES) && pipe(new_pipe))
-		return (-1);
-	if ((pid = fork()) < 0)
-		return (-2);
+		return (false);
+	pid = fork();
+	if (pid < 0)
+		return (false);
 	dup_selector(to_dup, cmd, new_pipe[1]);
 	if (pid == 0)
-	{
-		if (slave_action(to_dup, cmd, path, argv))
-			return (GLOB_ERR_MALLOC);
-	}
+		return (slave_action(to_dup, cmd, path, argv));
 	else
 	{
 		if (cmd->type_in == '|')
-			close_pipe(cmd->pipe_fd);
+		{
+			close(cmd->pipe_fd[0]);
+			close(cmd->pipe_fd[1]);
+		}
 		waitpid(pid, &cmd->return_value, 0);
 		cmd->pipe_fd[0] = new_pipe[0];
 		cmd->pipe_fd[1] = new_pipe[1];
 	}
+	return (true);
+}
+
+int	execute(char *path, t_command *cmd, char **argv)
+{
+	/* printf("path: %s; cmd: %s, in: %c, out: %c, pipe: %c\n", path, cmd->cmd, cmd->type_in, cmd->type_out, cmd->pipe); */
+	if (is_builtin(path))
+		builtin_handler(path, cmd, argv);
+	else if (!program_handler(path, cmd, argv))
+		return (-1);
 	return (0);
 }
