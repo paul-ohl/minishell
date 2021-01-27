@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/24 10:02:22 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/27 11:29:48 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int	export(t_env *env, int argc, char *argv)
 		tmp->value = ft_substr(argv, len_env(argv) + 1,
 				ft_strlen(argv) - len_env(argv) - 1);
 		tmp->next = temp;
+		temp->next = 0;
 	}
 	return (1);
 }
