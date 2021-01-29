@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/27 11:29:48 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/01/29 13:36:39 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,8 @@ int	export_check(t_env *env, char **argv)
 	{
 		if (check_name(argv[i]) == 2)
 		{
-			ft_putstr_fd("bash: export: `", 1);
-			ft_putstr_fd(argv[i], 1);
-			ft_putstr_fd("' : not a valid identifier", 1);
-			ft_putstr_fd("\n", 1);
+			printf("bash: export: `%s' : not a valid identifier\n", argv[i]);
+			singleton()->return_value = 1;
 		}
 		else if (check_name(argv[i]) == 1 || check_name(argv[i]) == 0)
 		{
@@ -98,6 +96,7 @@ int	export_check(t_env *env, char **argv)
 			else if (existing_name(env, argv[i]) == 0
 				&& check_name(argv[i]) == 0)
 				change_value(env, argv[i]);
+			singleton()->return_value = 0;
 		}
 	}
 	return (1);
@@ -117,8 +116,6 @@ int	export(t_env *env, int argc, char *argv)
 			tmp = tmp->next;
 		if (!(temp = malloc(sizeof(t_env))))
 			return (0);
-		if (check_name(argv) == 1)
-			temp->aff = 0;
 		temp->name = tmp->name;
 		temp->value = tmp->value;
 		tmp->name = ft_substr(argv, 0, len_env(argv));

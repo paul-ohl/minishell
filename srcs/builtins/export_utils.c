@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 08:45:28 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/24 10:04:43 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/29 13:46:09 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int print_env_alphasort(t_env *env)
     tmp = env;
     while (tmp)
     {
-        tmp1 = ft_strjoin(tmp->name, "=");
+        tmp1 = ft_strjoin_free(tmp->name, "=", 4);
         tmp1 = ft_strjoin_free(tmp1, tmp->value, 1);
         tab[++i] = tmp1;
         tmp = tmp->next;
