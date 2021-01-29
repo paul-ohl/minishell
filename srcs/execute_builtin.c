@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/29 11:37:33 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/01/29 14:03:54 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	builtin_exec(char *path, t_command *cmd, char **argv)
 	if (!ft_strcmp(path, "echo"))
 		ft_echo(argv);
 	if (!ft_strcmp(path, "cd"))
-		ft_cd(argv, cmd->env);
+		singleton()->return_value = (argv, cmd->env);
 	if (!ft_strcmp(path, "exit"))
 		ft_exit(cmd->env, cmd, argv);
 	return (1);
