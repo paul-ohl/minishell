@@ -6,7 +6,7 @@
 /*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:31:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/27 16:07:30 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/02 11:44:07 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,11 @@ bool	program_handler(char *path, t_command *cmd, char **argv)
 	return (true);
 }
 
-int	execute(char *path, t_command *cmd, char **argv)
+bool	execute(char *path, t_command *cmd, char **argv)
 {
-	/* printf("path: %s; cmd: %s, in: %c, out: %c, pipe: %c\n", path, cmd->cmd, cmd->type_in, cmd->type_out, cmd->pipe); */
 	if (is_builtin(path))
 		builtin_handler(path, cmd, argv);
 	else if (!program_handler(path, cmd, argv))
-		return (-1);
-	return (0);
+		return (false);
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/19 12:03:53 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/02 11:43:28 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ int	parser(char *buffer, t_command *command)
 		argv[argc] = 0;
 		if (!(executable_path = get_executable_path(argv[0], command->env)))
 			printf("couldn't find %s\n", argv[0]);
-		else if (execute(executable_path, command, argv))
+		else if (!execute(executable_path, command, argv))
 			printf("error: %s\n", strerror(errno));
-		else if (!ft_strcmp(argv[0], "exit")
-			&& (argv = free_argv(argv, argc, executable_path)) == 0)
-			return (1);
+		/* else if (!ft_strcmp(argv[0], "exit") */
+		/* 	&& (argv = free_argv(argv, argc, executable_path)) == 0) */
+		/* 	return (1); */
 		argv = free_argv(argv, argc, executable_path);
 		argc = 0;
 	}

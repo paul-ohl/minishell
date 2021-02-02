@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/29 14:36:17 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/02 12:05:53 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,11 @@ int	main(int argc, char **argv, char **envp)
 	return (start(argc, argv, envp));
 	return (singleton()->return_value);
 	start(argc, argv, envp);
+}
+
+void end() __attribute__((destructor));
+
+void end()
+{
 	system("leaks minishell");
 }

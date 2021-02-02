@@ -6,20 +6,20 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/29 13:53:05 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/02 11:48:54 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <limits.h>
-#include <signal.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <errno.h>
+# include <limits.h>
+# include <signal.h>
 # define MAX_CMD_LEN 262144
 # define PIPE_YES 'y'
 # define PIPE_NO 'n'
@@ -38,13 +38,13 @@
 ** it is set to errno when an error is encountered.
 */
 
-pid_t g_sig;
+pid_t	g_sig;
 
 typedef struct s_env {
 	char			*name;
 	char			*value;
 	struct s_env	*next;
-}			t_env;
+}t_env;
 
 typedef struct s_command {
 	char	*cmd;
@@ -56,7 +56,7 @@ typedef struct s_command {
 	int		return_value;
 	int		pipe_fd[2];
 	t_env	*env;
-}			t_command;
+}t_command;
 
 int			parser(char *buffer, t_command *command);
 int			skip_quote(char *buffer, int i);
@@ -72,7 +72,7 @@ int			init_struct(char **envp, t_command **command);
 void		set_redirect(t_command *command, char type, int fd);
 void		reset_fds(t_command *command);
 char		*get_executable_path(char *program_name, t_env *env);
-int			execute(char *executable_path, t_command *cmd, char **argv);
+bool		execute(char *executable_path, t_command *cmd, char **argv);
 char		*get_env_str(char *str, t_env *env);
 int			ft_strcpy_free_input(char *dst, char *src, int to_free);
 int			is_builtin(char *path);

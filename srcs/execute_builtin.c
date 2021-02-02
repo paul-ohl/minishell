@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/29 14:05:25 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/02 12:00:16 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,19 @@ int	count_argv(char **argv)
 
 int	builtin_exec(char *path, t_command *cmd, char **argv)
 {
+	cmd->return_value = 0;
 	if (!ft_strcmp(path, "pwd"))
-		ft_pwd(cmd->env, argv);
+		cmd->return_value = ft_pwd(cmd->env, argv);
 	if (!ft_strcmp(path, "env"))
 		print_env(cmd->env);
 	if (!ft_strcmp(path, "export"))
-		export_check(cmd->env, argv);
+		cmd->return_value = export_check(cmd->env, argv);
 	if (!ft_strcmp(path, "unset"))
-		unset(cmd->env, argv);
+		cmd->return_value = unset(cmd->env, argv);
 	if (!ft_strcmp(path, "echo"))
-		ft_echo(argv);
+		cmd->return_value = ft_echo(argv);
 	if (!ft_strcmp(path, "cd"))
-		singleton()->return_value = ft_cd(argv, cmd->env);
+		cmd->return_value = ft_cd(argv, cmd->env);
 	if (!ft_strcmp(path, "exit"))
 		ft_exit(cmd->env, cmd, argv);
 	return (1);
@@ -79,7 +80,6 @@ bool	builtin_handler(char *path, t_command *cmd, char **argv)
 	if ((cmd->type_out == '|' || cmd->pipe == PIPE_YES) && pipe(new_pipe))
 		return (false);
 	dup_selector(to_dup, cmd, new_pipe[1]);
-	/* printf("to_dup: %d, %d\n", to_dup[0], to_dup[1]); */
 	svg_fd[0] = dup(0);
 	svg_fd[1] = dup(1);
 	dup2(to_dup[0], 0);
