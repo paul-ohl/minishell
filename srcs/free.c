@@ -6,12 +6,30 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 06:34:05 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/19 12:06:06 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/02 15:21:04 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "minishell.h"
+
+void	free_everything(char *buf, t_command *command)
+{
+	t_env	*tmp;
+
+	free(buf);
+	reset_fds(command);
+	while (command->env)
+	{
+		tmp = command->env->next;
+		free(command->env->name);
+		free(command->env->value);
+		free(command->env);
+		command->env = tmp;
+	}
+	free(command->env);
+	free(command);
+}
 
 char	**free_argv(char **argv, int argc, char *executable_path)
 {

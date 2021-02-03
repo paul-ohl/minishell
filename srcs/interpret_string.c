@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 14:37:47 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/19 12:05:23 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/02 19:16:32 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ char	*get_word(t_command *command, int start, int end)
 	if (command->cmd[start] == ' ')
 		start++;
 	result_len = get_processed_len(command, start, end);
-	if (!(result_str = malloc(sizeof(result_str) * (result_len + 1))))
+	result_str = malloc(sizeof(result_str) * (result_len + 1));
+	if (!result_str)
 		return (NULL);
 	result_str[result_len] = 0;
 	if (!result_len)

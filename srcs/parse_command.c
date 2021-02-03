@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 14:18:44 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/19 12:04:56 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/02 19:37:27 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ int	reached_end_of_word(char *str, int i)
 	return (0);
 }
 
+void	print_redirection_error(char *redirection)
+{
+	ft_putstr_fd("Minishell error: ", 2);
+	ft_putstr_fd(redirection, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("\n", 2);
+	free(redirection);
+}
+
 int	get_fd(char *redirection, char type, t_command *command)
 {
 	int		flags;
@@ -42,43 +52,55 @@ int	get_fd(char *redirection, char type, t_command *command)
 		flags = O_RDONLY;
 	else
 		flags = 0;
-	if ((fd = open(redirection, flags, 0000644)) == -1)
+	fd = open(redirection, flags, 0000644);
+	if (fd == -1)
 	{
-		free(redirection);
-		command->return_value = errno;
+		print_redirection_error(redirection);
+		command->return_value = 1;
 		return (0);
 	}
 	free(redirection);
 	return (fd);
 }
 
-int	get_redirect(t_command *command, int *i)
+char	set_redirect_type(t_command *command, int *i)
 {
-	int		tmp;
 	char	type;
-	char	*redirect;
 
-	type = command->cmd[(*i)];
-	if (command->cmd[*i + 1] == '>' && (*i)++ != -42)
+	type = command->cmd[*i];
+	if (command->cmd[*i + 1] == '>')
+	{
+		(*i)++;
 		type = 'a';
+	}
 	if (type == '<')
 		command->type_in = '<';
 	else
 		command->type_out = type;
-	while (command->cmd[(*i) + 1] == ' ')
+	(*i)++;
+	while (command->cmd[*i] == ' ')
 		(*i)++;
-	tmp = skip_redirect(command->cmd, *i) - 1;
-	if (!(redirect = get_word(command, (*i) + 1, tmp + 1)))
-		return (0);
-	*i = tmp;
-	if (!(tmp = get_fd(redirect, type, command)))
-		return (0);
-	while (command->cmd[*i + 1] == ' ')
-		(*i)++;
-	if (!command->cmd[*i + 1])
-		(*i)++;
-	set_redirect(command, type, tmp);
-	return (1);
+	return (type);
+}
+
+bool	get_redirect(t_command *command, int *i)
+{
+	int		end_of_redirection;
+	int		fd;
+	char	type;
+	char	*redirect;
+
+	type = set_redirect_type(command, i);
+	end_of_redirection = skip_redirect(command->cmd, *i);
+	redirect = get_word(command, *i, end_of_redirection);
+	if (!redirect)
+		return (false);
+	*i = end_of_redirection;
+	fd = get_fd(redirect, type, command);
+	if (!fd)
+		return (false);
+	set_redirect_fd(command, type, fd);
+	return (true);
 }
 
 int	increment_variables(char *str, int *i)
@@ -90,31 +112,58 @@ int	increment_variables(char *str, int *i)
 	return (*i);
 }
 
-char	**parse_command(t_command *command, int argc)
+bool	handle_redirection(t_command *command, int *i, int *start)
+{
+	if (!get_redirect(command, i))
+		return (false);
+	while (command->cmd[*i] == ' ')
+		(*i)++;
+	(*i)--;
+	*start = *i + 1;
+	return (true);
+}
+
+bool	get_argv(char **argv, t_command *command)
 {
 	int		i;
-	int		j;
 	int		start;
-	char	**argv;
 
-	if (!(argv = (char **)malloc(sizeof(argv) * (argc + 1))))
-		return (NULL);
 	i = -1;
 	start = 0;
-	j = 0;
 	while ((i < 0 && ++i != -42) || command->cmd[i++])
 	{
 		i = skip_quote(command->cmd, i);
 		if (reached_end_of_word(command->cmd + start, i - start))
 		{
-			if (!(argv[j++] = get_word(command, start, i)))
-				return (NULL);
+			*argv = get_word(command, start, i);
+			if (!(argv)++)
+				return (false);
 			start = increment_variables(command->cmd, &i);
 		}
 		if (command->cmd[i] == '>' || command->cmd[i] == '<')
-			if (!(get_redirect(command, &i) && (start = i + 1) > -1))
-				return (free_argv(argv, j, NULL));
-		i = (command->cmd[i] == '\\' && command->cmd[i + 1]) ? i + 1 : i;
+		{
+			if (!handle_redirection(command, &i, &start))
+				return (false);
+		}
+		if (command->cmd[i] == '\\')
+			i++;
+	}
+	return (true);
+}
+
+char	**parse_command(t_command *command, int argc)
+{
+	char	**argv;
+
+	argv = (char **)ft_calloc(argc + 1, sizeof(*argv));
+	if (!argv)
+		return (NULL);
+	if (!get_argv(argv, command))
+	{
+		argc = 0;
+		while (argv[argc])
+			argc++;
+		return (free_argv(argv, argc, NULL));
 	}
 	return (argv);
 }

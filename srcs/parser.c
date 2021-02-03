@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/02 11:43:28 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/02 20:31:19 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,27 @@ int	arg_count(char *str)
 void	reinit_struct(t_command *command)
 {
 	command->cmd = NULL;
-	command->type_in = (command->pipe == PIPE_YES) ? '|' : ';';
+	if (command->pipe == PIPE_YES)
+		command->type_in = '|';
+	else
+		command->type_in = ';';
 	command->type_out = ';';
 	command->pipe = PIPE_NO;
-	set_redirect(command, '<', 0);
-	set_redirect(command, '>', 1);
+	set_redirect_fd(command, '<', 0);
+	set_redirect_fd(command, '>', 1);
 }
+
+bool	reset_counter(int *i, bool return_value)
+{
+	*i = 0;
+	return (return_value);
+}
+
+/*
+ * get_next_command returns true while the end of the command has not been
+ * reached.
+ * exception: when buffer is NULL, it resets the counter i and returns false.
+ */
 
 int	get_next_command(t_command *command, char *buffer)
 {
@@ -64,30 +79,39 @@ int	get_next_command(t_command *command, char *buffer)
 	int			start;
 
 	reinit_struct(command);
-	if (!buffer && (i = 0) == 0)
-		return (2);
+	if (!buffer)
+		return (reset_counter(&i, false));
 	while (buffer[i] == ' ')
 		i++;
-	if (!buffer[i] && (i = 0) == 0)
-		return (0);
+	if (!buffer[i])
+		return (reset_counter(&i, false));
 	start = i--;
 	while (buffer[++i] && buffer[i] != ';' && buffer[i] != '|')
 	{
 		i = skip_quote(buffer, i);
-		if (buffer[i] == '\\' && buffer[i + 1])
+		if (buffer[i] == '\\')
 			i++;
 	}
-	if (buffer[i] == '|' && (command->pipe = PIPE_YES))
+	if (buffer[i] == '|')
+	{
+		command->pipe = PIPE_YES;
 		command->type_out = '|';
-	else if (buffer[i] == ';')
-		command->type_out = ';';
+	}
 	if (buffer[i])
 		buffer[i++] = 0;
 	command->cmd = buffer + start;
-	return (1);
+	return (true);
 }
 
-int	parser(char *buffer, t_command *command)
+void	print_executable_path_error(char *executable_path, int *return_value)
+{
+	ft_putstr_fd("Minishell: ", 2);
+	ft_putstr_fd(executable_path, 2);
+	ft_putstr_fd(": command not found\n", 2);
+	*return_value = 1;
+}
+
+bool	parser(char *buffer, t_command *command)
 {
 	int			argc;
 	char		*executable_path;
@@ -97,18 +121,17 @@ int	parser(char *buffer, t_command *command)
 	{
 		executable_path = 0;
 		argc = arg_count(command->cmd);
-		if (!(argv = parse_command(command, argc)))
-			return (get_next_command(command, NULL));
+		argv = parse_command(command, argc);
+		if (!argv)
+			continue ;
+			/* return (get_next_command(command, NULL)); */
 		argv[argc] = 0;
 		if (!(executable_path = get_executable_path(argv[0], command->env)))
-			printf("couldn't find %s\n", argv[0]);
+			print_executable_path_error(argv[0], &command->return_value);
 		else if (!execute(executable_path, command, argv))
 			printf("error: %s\n", strerror(errno));
-		/* else if (!ft_strcmp(argv[0], "exit") */
-		/* 	&& (argv = free_argv(argv, argc, executable_path)) == 0) */
-		/* 	return (1); */
 		argv = free_argv(argv, argc, executable_path);
 		argc = 0;
 	}
-	return (0);
+	return (true);
 }

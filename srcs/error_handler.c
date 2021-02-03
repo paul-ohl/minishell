@@ -6,70 +6,111 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:11:39 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/02 11:41:53 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/02 19:29:08 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-#define SYNTAX_CLEAR 0
-#define SYN_ERR_PIPE 1
-#define SYN_ERR_QUOT 2
-#define SYN_ERR_BKSL 3
-#define SYN_NO_SUP_OR 4
-#define SYN_NO_SUP_AND 5
-#define SYN_ERR_SEMICOL 6
-#define SYN_ERR_REDIR 7
 
-int	check_redirect(char *str, int i, int *err)
+enum e_error_codes 
+{
+	SYNTAX_CLEAR = 0,
+	SYN_ERR_PIPE,
+	SYN_ERR_QUOT,
+	SYN_ERR_BKSL,
+	SYN_NO_SUP_OR,
+	SYN_NO_SUP_AND,
+	SYN_ERR_SEMICOL,
+	SYN_ERR_REDIR
+};
+
+bool	set_error_code(t_command *command, int *error_var, const int error_code)
+{
+	if (error_code)
+		command->return_value = 258;
+	*error_var = error_code;
+	if (error_code)
+		return (false);
+	return (true);
+}
+
+bool	check_redirect(char *str, int i, int *err, t_command *command)
 {
 	if (str[i] != '>' && str[i] != '<')
-		return (*err = SYNTAX_CLEAR);
+		return (true);
 	if (str[i++] == '>' && str[i] == '>')
 		i++;
 	while (str[i] == ' ')
 		i++;
 	if (ft_strchr("><;|", str[i]))
-		return (*err = SYN_ERR_REDIR);
-	return (*err = SYNTAX_CLEAR);
+		return (set_error_code(command, err, SYN_ERR_REDIR));
+	return (true);
 }
 
-int	check_quotes(char *str, int i)
+bool	check_quotes(char *str, int *original_iterator)
 {
 	char	to_skip;
+	int		i;
 
+	i = *original_iterator;
 	if ((str[i] == '\'' || str[i] == '"') && !str[i + 1])
-		return (-1);
+		return (false);
 	to_skip = str[i];
 	i = skip_quote(str, i);
 	if (str[i] != to_skip)
-		return (-1);
-	else
-		return (i);
+		return (false);
+	*original_iterator = i;
+	return (true);
 }
 
-int	check_cmd_separators(char *str, int i, int *err)
+bool	check_cmd_separators(char *str, int i, int *err, t_command *command)
 {
 	char	current_char;
 
 	current_char = str[i];
 	if (current_char != '|' && current_char != ';')
-		return (*err = SYNTAX_CLEAR);
+		return (set_error_code(command, err, SYNTAX_CLEAR));
 	if (current_char == '|' && str[i + 1] == '|')
-		return (*err = SYN_NO_SUP_OR);
+		return (set_error_code(command, err, SYN_NO_SUP_OR));
 	i++;
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '|')
-		return (*err = SYN_ERR_PIPE);
+		return (set_error_code(command, err, SYN_ERR_PIPE));
 	if (str[i] == ';')
-		return (*err = SYN_ERR_SEMICOL);
+		return (set_error_code(command, err, SYN_ERR_SEMICOL));
 	else if (current_char == '|' && !str[i])
-		return (*err = SYN_ERR_PIPE);
-	return (*err = SYNTAX_CLEAR);
+		return (set_error_code(command, err, SYN_ERR_PIPE));
+	return (true);
 }
 
-int	basic_syntax_check(char *str, int *err)
+bool	str_check(char *str, int *err, t_command *command)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\\')
+		{
+			i++;
+			if (!str[i])
+				return (set_error_code(command, err, SYN_ERR_BKSL));
+		}
+		else if (!check_quotes(str, &i))
+			return (set_error_code(command, err, SYN_ERR_QUOT));
+		else if (!check_cmd_separators(str, i, err, command))
+			return (false);
+		else if (!check_redirect(str, i, err, command))
+			return (false);
+		else if (str[i] == '&' && str[i + 1] == '&')
+			return (set_error_code(command, err, SYN_NO_SUP_AND));
+	}
+	return (true);
+}
+
+bool	syntax_check(char *str, int *err, t_command *command)
 {
 	int		i;
 
@@ -77,25 +118,12 @@ int	basic_syntax_check(char *str, int *err)
 	while (str[i] == ' ')
 		str++;
 	if (str[i] == '|')
-		return (*err = SYN_ERR_PIPE);
+		return (set_error_code(command, err, SYN_ERR_PIPE));
 	if (str[i] == ';')
-		return (*err = SYN_ERR_SEMICOL);
-	i--;
-	while (str[++i])
-	{
-		if (str[i] == '\\' && !str[i + 1])
-			return (*err = SYN_ERR_BKSL);
-		else if (str[i] == '\\')
-			i++;
-		else if ((i = check_quotes(str, i)) == -1)
-			return (*err = SYN_ERR_QUOT);
-		else if (check_cmd_separators(str, i, err)
-			|| check_redirect(str, i, err))
-			return (*err);
-		else if (str[i] == '&' && str[i + 1] == '&')
-			return (*err = SYN_NO_SUP_AND);
-	}
-	return (*err = SYNTAX_CLEAR);
+		return (set_error_code(command, err, SYN_ERR_SEMICOL));
+	if (!str_check(str + i, err, command))
+		return (false);
+	return (set_error_code(command, err, SYNTAX_CLEAR));
 }
 
 void	print_syntax_error(int err)

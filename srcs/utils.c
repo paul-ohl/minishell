@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 15:21:50 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/19 12:11:34 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/02 17:22:11 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	skip_redirect(char *buffer, int i)
 			i++;
 		else if (buffer[i] == '"' || buffer[i] == '\'')
 			i = skip_quote(buffer, i);
+		else if (ft_strchr("<>", buffer[i]))
+			return (i);
 		i++;
 	}
 	return (i);
@@ -85,7 +87,7 @@ int	init_struct(char **envp, t_command **command)
 	return (1);
 }
 
-void	set_redirect(t_command *command, char type, int redirect_fd)
+void	set_redirect_fd(t_command *command, char type, int redirect_fd)
 {
 	if (type == '<')
 	{
