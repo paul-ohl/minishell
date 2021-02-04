@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/04 14:43:40 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/04 16:19:00 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,6 @@ bool	parser(char *buffer, t_command *command)
 		argv = free_argv(argv, argc, executable_path);
 		argc = 0;
 	}
-	printf("buffer: %s\n", buffer);
+	/* printf("buffer: %s\n", buffer); */
 	return (true);
 }
