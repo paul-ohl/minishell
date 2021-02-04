@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/02 12:00:16 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/04 14:32:35 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,48 +28,26 @@ int	count_argv(char **argv)
 	return (i);
 }
 
-int	builtin_exec(char *path, t_command *cmd, char **argv)
+void	builtin_exec(char *path, t_command *cmd, char **argv)
 {
 	cmd->return_value = 0;
-	if (!ft_strcmp(path, "pwd"))
+	if (!path)
+		cmd->return_value = 1;
+	else if (!ft_strcmp(path, "pwd"))
 		cmd->return_value = ft_pwd(cmd->env, argv);
-	if (!ft_strcmp(path, "env"))
+	else if (!ft_strcmp(path, "env"))
 		print_env(cmd->env);
-	if (!ft_strcmp(path, "export"))
+	else if (!ft_strcmp(path, "export"))
 		cmd->return_value = export_check(cmd->env, argv);
-	if (!ft_strcmp(path, "unset"))
+	else if (!ft_strcmp(path, "unset"))
 		cmd->return_value = unset(cmd->env, argv);
-	if (!ft_strcmp(path, "echo"))
+	else if (!ft_strcmp(path, "echo"))
 		cmd->return_value = ft_echo(argv);
-	if (!ft_strcmp(path, "cd"))
+	else if (!ft_strcmp(path, "cd"))
 		cmd->return_value = ft_cd(argv, cmd->env);
-	if (!ft_strcmp(path, "exit"))
+	else if (!ft_strcmp(path, "exit"))
 		ft_exit(cmd->env, cmd, argv);
-	return (1);
 }
-
-/* int	exit_handler() */
-/* { */
-/* 	int		i; */
-
-/* 	if (!ft_strcmp(path, "exit")) */
-/* 	{ */
-/* 		i = 0; */
-/* 		while (argv[i]) */
-/* 			i++; */
-/* 		if (i == 1) */
-/* 			cmd->return_value = 1; */
-/* 		else if (i == 2) */
-/* 		{ */
-/* 			i = 0; */
-/* 			while (is_whitespace(argv[1][i])) */
-/* 				i++; */
-/* 			cmd->return_value = ft_isdigit(argv[1][i]) ? ft_atoi(argv[1]) : 255; */
-/* 		} */
-/* 		else if ((cmd->return_value = 7) == 7) */
-/* 			return ((errno = cmd->return_value)); */
-/* 	} */
-/* } */
 
 bool	builtin_handler(char *path, t_command *cmd, char **argv)
 {
@@ -96,5 +74,7 @@ bool	builtin_handler(char *path, t_command *cmd, char **argv)
 	close(to_dup[1]);
 	dup2(svg_fd[0], 0);
 	dup2(svg_fd[1], 1);
+	close(svg_fd[0]);
+	close(svg_fd[1]);
 	return (true);
 }

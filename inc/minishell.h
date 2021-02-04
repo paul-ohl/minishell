@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/02 19:11:27 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/04 14:06:30 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			len_env(char *str);
 int			count_argv(char **argv);
 int			export(t_env *env, int argc, char *argv);
 int			ft_pwd(t_env *env, char **argv);
-int			builtin_exec(char *path, t_command *cmd, char **argv);
+void		builtin_exec(char *path, t_command *cmd, char **argv);
 int			unset(t_env *env, char **argv);
 int			print_env_alphasort(t_env *env);
 int			ft_echo(char **args);
@@ -102,5 +102,6 @@ void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
 t_command	*singleton(void);
 void		ft_exit(t_env *env, t_command *command, char **argv);
+void		reinit_struct(t_command *command);
 
 #endif

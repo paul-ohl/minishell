@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/02 20:31:19 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/04 14:43:40 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ int	get_next_command(t_command *command, char *buffer)
 	return (true);
 }
 
-void	print_executable_path_error(char *executable_path, int *return_value)
+void	print_executable_path_error(char *executable_path, t_command *command)
 {
 	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(executable_path, 2);
 	ft_putstr_fd(": command not found\n", 2);
-	*return_value = 1;
+	command->return_value = 1;
 }
 
 bool	parser(char *buffer, t_command *command)
@@ -124,14 +124,15 @@ bool	parser(char *buffer, t_command *command)
 		argv = parse_command(command, argc);
 		if (!argv)
 			continue ;
-			/* return (get_next_command(command, NULL)); */
 		argv[argc] = 0;
+		/* printf(">>>  for %s type_in: %c, type_out: %c, pipe: %c\n", command->cmd, command->type_in, command->type_out, command->pipe); */
 		if (!(executable_path = get_executable_path(argv[0], command->env)))
-			print_executable_path_error(argv[0], &command->return_value);
-		else if (!execute(executable_path, command, argv))
+			print_executable_path_error(argv[0], command);
+		if (!execute(executable_path, command, argv))
 			printf("error: %s\n", strerror(errno));
 		argv = free_argv(argv, argc, executable_path);
 		argc = 0;
 	}
+	printf("buffer: %s\n", buffer);
 	return (true);
 }

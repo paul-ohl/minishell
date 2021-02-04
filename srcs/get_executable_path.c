@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:19:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/26 12:09:25 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/04 14:04:55 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*ft_concat(char *str1, char *str2, char separator)
 
 int	is_builtin(char *path)
 {
+	if (!path)
+		return (1);
 	if (!ft_strcmp(path, "exit"))
 		return (1);
 	if (!ft_strcmp(path, "export"))
