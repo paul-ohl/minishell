@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/04 15:11:58 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/04 17:17:11 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ int	existing_name(t_env *env, char *argv)
 int	export_check(t_env *env, char **argv)
 {
 	int i;
+	int	return_value;
 
 	i = 0;
+	return_value = 0;
 	if (count_argv(argv) == 1)
 		export(env, count_argv(argv), argv[i]);
 	while (argv[++i])
@@ -87,7 +89,7 @@ int	export_check(t_env *env, char **argv)
 		if (check_name(argv[i]) == 2)
 		{
 			printf("bash: export: `%s' : not a valid identifier\n", argv[i]);
-			singleton()->return_value = 1;
+			return_value = 1;
 		}
 		else if (check_name(argv[i]) == 1 || check_name(argv[i]) == 0)
 		{
@@ -96,10 +98,10 @@ int	export_check(t_env *env, char **argv)
 			else if (existing_name(env, argv[i]) == 0
 				&& check_name(argv[i]) == 0)
 				change_value(env, argv[i]);
-			singleton()->return_value = 0;
+			return_value = 0;
 		}
 	}
-	return (1);
+	return (return_value);
 }
 
 int	export(t_env *env, int argc, char *argv)

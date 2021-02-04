@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:02:14 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/24 10:03:27 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/04 17:19:15 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ int	unset(t_env *env, char **argv)
 			env = prev;
 	prev = prev->next;
 	unset_loop(prev, env, argv);
-	return (1);
+	return (0);
 }

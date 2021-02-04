@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/04 16:54:24 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/04 17:26:23 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	count_argv(char **argv)
 {
 	int i;
 
+	if (!argv)
+		return (0);
 	i = -1;
 	while (argv[++i])
 		;

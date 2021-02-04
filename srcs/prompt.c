@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/04 14:06:41 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/04 18:18:05 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	print_prompt(char *buf)
 
 	write(1, "$> ", 3);
 	n = read(0, buf, MAX_CMD_LEN);
-	buf[n - 1] = 0;
-	if (n == MAX_CMD_LEN)
+	if (!n)
 		return (0);
+	buf[n - 1] = 0;
 	return (n);
 }
 
@@ -42,12 +42,11 @@ int	start(int argc, char **argv, char **envp)
 	while (1)
 	{
 		if (!print_prompt(buf))
-			return (GLOB_CMD_LEN);
+			ft_exit(command->env, command, NULL);
 		if (!syntax_check(buf, &err, command))
 			print_syntax_error(err);
 		else
 			parser(buf, command);
-			/* print_parser_error(err, command); */
 	}
 	return (0);
 }
