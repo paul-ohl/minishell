@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/02 12:00:16 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/04 14:17:14 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ int	count_argv(char **argv)
 
 int	builtin_exec(char *path, t_command *cmd, char **argv)
 {
-	cmd->return_value = 0;
 	if (!ft_strcmp(path, "pwd"))
-		cmd->return_value = ft_pwd(cmd->env, argv);
+		ft_pwd(cmd->env, argv);
 	if (!ft_strcmp(path, "env"))
 		print_env(cmd->env);
 	if (!ft_strcmp(path, "export"))
-		cmd->return_value = export_check(cmd->env, argv);
+		export_check(cmd->env, argv);
 	if (!ft_strcmp(path, "unset"))
-		cmd->return_value = unset(cmd->env, argv);
+		unset(cmd->env, argv);
 	if (!ft_strcmp(path, "echo"))
-		cmd->return_value = ft_echo(argv);
+		ft_echo(argv);
 	if (!ft_strcmp(path, "cd"))
-		cmd->return_value = ft_cd(argv, cmd->env);
+		ft_cd(argv, cmd->env);
 	if (!ft_strcmp(path, "exit"))
 		ft_exit(cmd->env, cmd, argv);
+	cmd->return_value = 0;
 	return (1);
 }
 

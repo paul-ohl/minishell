@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:16:15 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/29 11:34:01 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/02 12:05:19 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int		pwd_error(char *argv)
 	return (0);
 }
 
-int		ft_pwd(t_env *env, char **argv)
+int	ft_pwd(t_env *env, char **argv)
 {
-	t_env *tmp;
-
-	tmp = env;
+	t_env	*tmp;
 	char	cwd[PATH_MAX];
+	
+	tmp = env;
 	if (count_argv(argv) >= 2)
 		if (pwd_error(argv[1]) == 1)
 			return (1);

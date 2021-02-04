@@ -6,12 +6,22 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:44:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/24 09:38:52 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/02 14:50:19 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+void	*ft_memdel(void *ptr)
+{
+	if (ptr)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+	return (NULL);
+}
 
 int	is_in_env(t_env *env, char *str)
 {
@@ -38,7 +48,7 @@ int	update_oldpwd(t_env *env)
 		return (1);
 	if (is_in_env(env, oldpwd) == 0)
 		change_value(env, oldpwd);
-	// ft_memdel(oldpwd);
+	ft_memdel(oldpwd);
 	return (0);
 }
 
@@ -53,7 +63,7 @@ int	update_pwd(t_env *env)
 		return (1);
 	if (is_in_env(env, pwd) == 0)
 		change_value(env, pwd);
-	// ft_memdel(oldpwd);
+	ft_memdel(pwd);
 	return (0);
 }
 

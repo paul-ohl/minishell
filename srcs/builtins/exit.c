@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:42:59 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/29 13:32:06 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/02 12:01:43 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,40 @@
 
 static int	str_is_number(char *string)
 {
-	size_t index;
+	size_t	index;
 
 	index = 0;
 	while (string[index] != '\0')
 	{
 		if (string[index] < '0' || string[index] > '9')
-		{
 			return (0);
-		}
 		index++;
 	}
 	return (1);
 }
 
-void    free_env(t_env *env)
+void	free_env(t_env *env)
 {
-    t_env *tmp;
+	t_env	*tmp;
 
-    tmp = env;
-    while (tmp)
-    {
-        free(tmp->name);
-        tmp->name = NULL;
-        free(tmp->value);
-        tmp->value = NULL;
-        tmp = tmp->next;
-    }
+	tmp = env;
+	while (tmp)
+	{
+		free(tmp->name);
+		tmp->name = NULL;
+		free(tmp->value);
+		tmp->value = NULL;
+		tmp = tmp->next;
+	}
 }
 
-void    free_cmd(t_command *command)
+void	free_cmd(t_command *command)
 {
-    free(command->cmd);
-    command->cmd = NULL;
+	free(command->cmd);
+	command->cmd = NULL;
 }
 
-void		ft_exit(t_env *env, t_command *command, char **argv)
+void	ft_exit(t_env *env, t_command *command, char **argv)
 {
 	unsigned char	exit_code;
 	char			*env_status;
@@ -69,7 +67,7 @@ void		ft_exit(t_env *env, t_command *command, char **argv)
 	}
     else
 		exit_code = 0;
-    free_cmd(command);
+	free_cmd(command);
 	free_env(env);
 	exit(exit_code);
 }

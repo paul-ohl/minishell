@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 23:25:31 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/29 13:59:31 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/02 14:59:33 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ static void	print_error(char **args)
 	}
 	ft_putendl_fd(args[1], 2);
 }
-//CD REUSSI exit = 0
-//CD ECHEC = 1
-//bash: cd: HOME not set
+
 char	*get_env_path(t_env *env, const char *var, size_t len)
 {
 	char	*oldpwd;
@@ -59,8 +57,6 @@ static int	go_to_patho1(char *env_path, t_env *env)
 	
 	ret = chdir(env_path);
 	update_pwd(env);
-	free(env_path);
-	// ft_memdel(env_path);
 	return (ret);
 }
 
