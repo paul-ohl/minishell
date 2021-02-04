@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:37:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/29 10:48:15 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/04 15:25:11 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sigquit_handler(int signal)
 	}
 	if (g_sig > 0)
 		kill(g_sig, signal);
-	// singleton()->statuspid = status;
+	singleton()->return_value = status;
 	if (tmp > -1 && WIFSIGNALED(status))
 		write(1, "Quit: (core dumped)\n", 21);
 }
@@ -45,7 +45,7 @@ void	sigint_handler(int signal)
 	}
 	if (g_sig > 0) //fork process id
 		kill(g_sig, signal);
-	// singleton()->statuspid = status;
+	singleton()->return_value = status;
 	if (tmp > -1 && WIFSIGNALED(status))
 		write(1, "\n", 1);
 	if (singleton()->cmd)

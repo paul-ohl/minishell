@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulohl <paulohl@student.42.fr>            +#+  +:+       +#+        */
+/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:39:50 by pohl              #+#    #+#             */
-/*   Updated: 2021/01/26 12:07:18 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/02 14:48:27 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int		ft_getopt(t_opt *options, int argc, char *argv[], char *optstr);
 size_t	ft_strcpy(char *dst, const char *src);
 char	**ft_free_array(char **array);
 char	*ft_strndup(char *str, int len);
+void	*ft_memdel(void *ptr);
 
 #endif
