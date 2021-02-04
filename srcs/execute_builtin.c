@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/04 16:17:03 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/04 16:54:24 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,41 @@ void	builtin_exec(char *path, t_command *cmd, char **argv)
 		ft_exit(cmd->env, cmd, argv);
 }
 
+int	builtin_dup_selector(t_command *command, int new_pipe[2])
+{
+	if (command->type_in == '|')
+	{
+		close(command->pipe_fd[0]);
+		close(command->pipe_fd[1]);
+	}
+	else if (command->type_in == '<')
+		close(command->fd_in);
+	if (command->type_out == '|')
+		return (new_pipe[1]);
+	else
+		return (command->fd_out);
+}
+
 bool	builtin_handler(char *path, t_command *cmd, char **argv)
 {
-	int		to_dup[2];
-	int		svg_fd[2];
+	int		fd_out;
+	int		svg_fd;
 	int		new_pipe[2];
 
 	if ((cmd->type_out == '|' || cmd->pipe == PIPE_YES) && pipe(new_pipe))
 		return (false);
-	dup_selector(to_dup, cmd, new_pipe[1]);
-	svg_fd[0] = dup(0);
-	svg_fd[1] = dup(1);
-	dup2(to_dup[0], 0);
-	dup2(to_dup[1], 1);
-	if (cmd->type_in == '|')
-	{
-		close(cmd->pipe_fd[0]);
-		close(cmd->pipe_fd[1]);
-	}
+	fd_out = builtin_dup_selector(cmd, new_pipe);
+	if (fd_out != 1)
+		svg_fd = dup(1);
+	dup2(fd_out, 1);
 	builtin_exec(path, cmd, argv);
 	cmd->pipe_fd[0] = new_pipe[0];
 	cmd->pipe_fd[1] = new_pipe[1];
-	close(to_dup[0]);
-	close(to_dup[1]);
-	dup2(svg_fd[0], 0);
-	dup2(svg_fd[1], 1);
-	close(svg_fd[0]);
-	close(svg_fd[1]);
+	if (fd_out != 1)
+	{
+		close(fd_out);
+		dup2(svg_fd, 1);
+		close(svg_fd);
+	}
 	return (true);
 }
