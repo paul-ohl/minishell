@@ -1,4 +1,6 @@
 Leaks on ctrl+D
+Leaks on redirections :(
+Crash when exit is not alone (ex: echo bonjour; exit)
 
 
 # Parser rework
