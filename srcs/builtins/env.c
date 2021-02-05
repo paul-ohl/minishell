@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:53:18 by elbouju           #+#    #+#             */
-/*   Updated: 2021/01/29 13:32:46 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/05 13:20:43 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,47 @@ int	len_env(char *str)
 	return (i);
 }
 
-void	print_env(t_env *env)
+int	env_error(char **argv)
+{
+	int i;
+
+	i = 0;
+	if (count_argv(argv) >= 2)
+	{
+		while (argv[i++])
+		{
+			if (argv[i][0] != '-' && ft_isprint(argv[i][0]))
+			{
+				printf("env: %s: No such file or directory\n", argv[i]);
+				return (127);
+			}
+			else if (argv[1][0] == '-' && ft_isprint(argv[1][1]))
+			{
+				printf("env: illegal option -- %s\n", argv[1]);
+				printf("usage: env [-iv] [-P utilpath] [-S string] [-u name]\n");
+				printf("[name=value ...] [utility [argument ...]]\n");
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+int	print_env(t_env *env, char **argv)
 {
 	t_env	*tmp;
+	int		err;
 
+	err = env_error(argv);
+	if (err != 0)
+		return (err);
 	tmp = env;
 	while (tmp)
 	{
 		printf("%s=%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 t_env	*stock_env(char **envp)

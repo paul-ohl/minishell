@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/04 17:26:23 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/05 13:04:37 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	builtin_exec(char *path, t_command *cmd, char **argv)
 	else if (!ft_strcmp(path, "pwd"))
 		cmd->return_value = ft_pwd(cmd->env, argv);
 	else if (!ft_strcmp(path, "env"))
-		print_env(cmd->env);
+		cmd->return_value = print_env(cmd->env, argv);
 	else if (!ft_strcmp(path, "export"))
 		cmd->return_value = export_check(cmd->env, argv);
 	else if (!ft_strcmp(path, "unset"))

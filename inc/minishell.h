@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/04 14:06:30 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/05 14:29:39 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char		*get_env_str(char *str, t_env *env);
 int			ft_strcpy_free_input(char *dst, char *src, int to_free);
 int			is_builtin(char *path);
 t_env		*stock_env(char **envp);
-void		print_env(t_env *env);
+int			print_env(t_env *env, char **argv);
 int			len_env(char *str);
 int			count_argv(char **argv);
 int			export(t_env *env, int argc, char *argv);
@@ -103,5 +103,6 @@ void		sigquit_handler(int signal);
 t_command	*singleton(void);
 void		ft_exit(t_env *env, t_command *command, char **argv);
 void		reinit_struct(t_command *command);
+char		*ft_strjoin_free(char *s1, char *s2, char state);
 
 #endif

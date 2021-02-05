@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/04 17:17:11 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/05 14:33:13 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ int	change_value(t_env *env, char *argv)
 			free(tmp->value);
 			tmp->value = ft_substr(argv, len_env(argv) + 1,
 					ft_strlen(argv) - len_env(argv) - 1);
+			free(argv);
 			return (0);
 		}
 		tmp = tmp->next;
 	}
 	free(compared_string);
+	free(argv);
 	return (1);
 }
 

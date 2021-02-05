@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 23:25:31 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/02 14:59:33 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/05 15:48:15 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,30 @@
 
 static void	print_error(char **args)
 {
-	ft_putstr_fd("cd: ", 2);
-	if (args[2])
-		ft_putstr_fd("string not in pwd: ", 2);
+	printf("count arg%d\n", count_argv(args));
+	if (count_argv(args) >= 2 && args[1][0] == '-')
+		printf("1\n");
+	if (count_argv(args) >= 2 && args[1][0] == '-' && ft_strlen(args[1]) > 1 &&
+		ft_isprint(args[1][1]))
+	{
+		printf("bash: cd: %s: invalid option", args[1]);
+		printf("cd: usage: cd [-L|-P] [dir]");
+	}
 	else
 	{
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd(": ", 2);
+		printf("atg 0 %s\n", args[0]);
+		printf("atg 1 %s\n", args[1]);
+		ft_putstr_fd("cd: ", 2);
+		if (args[2])
+			ft_putstr_fd("string not in pwd: ", 2);
+		else
+		{
+			printf("123\n");
+			ft_putstr_fd(strerror(errno), 2);
+			ft_putstr_fd(": ", 2);
+		}
+		ft_putendl_fd(args[1], 2);
 	}
-	ft_putendl_fd(args[1], 2);
 }
 
 char	*get_env_path(t_env *env, const char *var, size_t len)
@@ -106,10 +121,11 @@ int	ft_cd(char **args, t_env *env)
 		if (cd_ret != 0)
 		{
 			if (temp != NULL)
-				change_value(env, ft_strjoin("OLDPWD=", temp));
-			free(temp);
+				ft_strjoin_free("OLDPWD=", temp, 4);
 			print_error(args);
 		}
+		if (temp)
+			free(temp);
 	}
 	return (cd_ret);
 }

@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:16:15 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/02 12:05:19 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/05 13:26:01 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		pwd_error(char *argv)
 		{
 			printf("bash: pwd: %c%c: invalid option", argv[0], argv[1]);
 			printf("\npwd: usage: pwd [-LP]\n");
-			singleton()->return_value = 1;
 			return (1);
 		}
 	}
@@ -52,7 +51,6 @@ int	ft_pwd(t_env *env, char **argv)
 			if (!ft_strcmp("PWD", tmp->name))
 			{
 				printf("%s\n", tmp->value);
-				singleton()->return_value = 0;
 				return (0);
 			}
 			tmp = tmp->next;
