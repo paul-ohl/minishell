@@ -6,12 +6,22 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:11:39 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 20:13:05 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 20:22:53 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+void	print_redirection_error(char *redirection)
+{
+	ft_putstr_fd("Minishell error: ", 2);
+	ft_putstr_fd(redirection, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("\n", 2);
+	free(redirection);
+}
 
 bool	set_error_code(t_command *command, int *error_var, const int error_code)
 {
