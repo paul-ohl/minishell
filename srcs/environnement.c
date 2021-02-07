@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 16:00:45 by paulohl           #+#    #+#             */
-/*   Updated: 2021/01/19 12:07:53 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 19:51:49 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,36 +49,46 @@ char	*get_env(t_command *command, int *i)
 	return (env_var);
 }
 
+int	struct_len(t_env *env)
+{
+	size_t	i;
+
+	i = 0;
+	if (!env)
+		return (0);
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
+}
+
 char	**to_string_array(t_env *env)
 {
-	t_env	*tmp;
 	char	**envp;
 	int		i;
 	int		name_len;
 
-	tmp = env;
-	i = 1;
-	if (!tmp)
-		i = 0;
-	else
-		while ((tmp = tmp->next))
-			i++;
-	tmp = env;
-	if (!(envp = malloc(sizeof(envp) * (i + 1))))
+	i = struct_len(env);
+	envp = malloc(sizeof(*envp) * (i + 1));
+	if (!envp)
 		return (NULL);
 	envp[i] = 0;
-	if (!tmp)
+	if (!env)
 		return (envp);
 	i = 0;
-	while (tmp)
+	while (env)
 	{
-		if (!(envp[i] = malloc(sizeof(envp[i]) * ft_strlen(tmp->name) + ft_strlen(tmp->value) + 2)))
+		envp[i] = malloc(sizeof(envp[i])
+				* ft_strlen(env->name) + ft_strlen(env->value) + 2);
+		if (!envp[i])
 			return (free_envp(envp, i));
-		name_len = ft_strcpy(envp[i], tmp->name);
+		name_len = ft_strcpy(envp[i], env->name);
 		envp[i][name_len] = '=';
-		ft_strcpy(envp[i] + name_len + 1, tmp->value);
+		ft_strcpy(envp[i] + name_len + 1, env->value);
 		i++;
-		tmp = tmp->next;
+		env = env->next;
 	}
 	return (envp);
 }
