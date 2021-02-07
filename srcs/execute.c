@@ -6,7 +6,7 @@
 /*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:31:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/02 11:44:07 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 20:14:28 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	dup_selector(int to_dup[2], t_command *command, int new_pipe_out)
 		to_dup[1] = command->fd_out;
 }
 
-int		slave_action(int to_dup[2], t_command *cmd, char *path, char **argv)
+int	slave_action(int to_dup[2], t_command *cmd, char *path, char **argv)
 {
 	char	**envp;
 
