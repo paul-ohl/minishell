@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/04 18:18:05 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 19:33:12 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ void end() __attribute__((destructor));
 
 void end()
 {
-	system("leaks minishell");
+	/* system("leaks minishell"); */
 }
