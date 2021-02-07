@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 19:59:32 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 20:13:16 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@
 */
 
 pid_t	g_sig;
+
+enum e_error_codes
+{
+	SYNTAX_CLEAR = 0,
+	SYN_ERR_PIPE,
+	SYN_ERR_QUOT,
+	SYN_ERR_BKSL,
+	SYN_NO_SUP_OR,
+	SYN_NO_SUP_AND,
+	SYN_ERR_SEMICOL,
+	SYN_ERR_REDIR
+};
 
 typedef struct s_env {
 	char			*name;
@@ -103,5 +115,7 @@ t_command	*singleton(void);
 void		ft_exit(t_env *env, char **argv);
 void		reinit_struct(t_command *command);
 char		*ft_strjoin_free(char *s1, char *s2, char state);
+bool		set_error_code(t_command *cmd, int *error_var, const int err_code);
+bool		str_check(char *str, int *err, t_command *command);
 
 #endif
