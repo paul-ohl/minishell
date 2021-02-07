@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:37:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/04 15:25:11 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/07 20:18:16 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	sigquit_handler(int signal)
 {
-	int status;
-	int tmp;
+	int	status;
+	int	tmp;
 
 	tmp = waitpid(-1, &status, WUNTRACED);
 	if (tmp == -1)
@@ -33,7 +33,7 @@ void	sigquit_handler(int signal)
 
 void	sigint_handler(int signal)
 {
-	int status;
+	int	status;
 	int	tmp;
 
 	tmp = waitpid(-1, &status, WUNTRACED);
