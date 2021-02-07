@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:42:59 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/06 13:37:45 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 19:59:09 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	free_cmd(t_command *command)
 	command->cmd = NULL;
 }
 
-void	ft_exit(t_env *env, t_command *command, char **argv)
+void	ft_exit(t_env *env, char **argv)
 {
 	unsigned char	exit_code;
-	char			*env_status;
+	/* char			*env_status; */
 
 	// env_status = ft_getenv(env_list, STATUS_CODE_KEY); //AJOUTER RETURN VALUE
 	exit_code = 1;

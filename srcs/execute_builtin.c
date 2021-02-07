@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/05 13:04:37 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/07 20:00:19 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	builtin_exec(char *path, t_command *cmd, char **argv)
 	else if (!ft_strcmp(path, "cd"))
 		cmd->return_value = ft_cd(argv, cmd->env);
 	else if (!ft_strcmp(path, "exit"))
-		ft_exit(cmd->env, cmd, argv);
+		ft_exit(cmd->env, argv);
 }
 
 int	builtin_dup_selector(t_command *command, int new_pipe[2])

@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/05 14:29:39 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/07 19:59:32 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char		*get_env(t_command *cmd, int *i);
 char		**free_argv(char **argv, int argc, char *exec_path);
 bool		syntax_check(char *str, int *err, t_command *command);
 void		print_syntax_error(int err);
-void		print_parser_error(int err, t_command *command);
 int			init_struct(char **envp, t_command **command);
 void		set_redirect_fd(t_command *command, char type, int fd);
 void		reset_fds(t_command *command);
@@ -101,7 +100,7 @@ void		dup_selector(int to_dup[2], t_command *command, int new_pipe_out);
 void		sigint_handler(int signal);
 void		sigquit_handler(int signal);
 t_command	*singleton(void);
-void		ft_exit(t_env *env, t_command *command, char **argv);
+void		ft_exit(t_env *env, char **argv);
 void		reinit_struct(t_command *command);
 char		*ft_strjoin_free(char *s1, char *s2, char state);
 

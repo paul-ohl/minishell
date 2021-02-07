@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 19:33:12 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 20:00:02 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	start(int argc, char **argv, char **envp)
 	while (1)
 	{
 		if (!print_prompt(buf))
-			ft_exit(command->env, command, NULL);
+			ft_exit(command->env, NULL);
 		if (!syntax_check(buf, &err, command))
 			print_syntax_error(err);
 		else

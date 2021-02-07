@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 15:21:50 by pohl              #+#    #+#             */
-/*   Updated: 2021/02/02 17:22:11 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 19:58:40 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	skip_redirect(char *buffer, int i)
 
 int	init_struct(char **envp, t_command **command)
 {
-	if (!(*command = malloc(sizeof(t_command))))
+	*command = malloc(sizeof(t_command));
+	if (!*command)
 		return (0);
 	(*command)->cmd = NULL;
 	(*command)->fd_in = 0;
