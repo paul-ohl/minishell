@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:19:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/04 14:04:55 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 20:15:26 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char	*ft_concat(char *str1, char *str2, char separator)
 		i++;
 	while (str2[j])
 		j++;
-	if (!(result = malloc(sizeof(result) * (i + j + 2))))
+	result = malloc(sizeof(result) * (i + j + 2));
+	if (!result)
 		return (NULL);
 	i = -1;
 	while (str1[++i])
@@ -80,7 +81,8 @@ char	*get_executable_path(char *program_name, t_env *env)
 
 	if (is_builtin(program_name) || is_file_executable(program_name))
 		return (ft_strdup(program_name));
-	if (!(path = ft_split(get_env_str("PATH", env), ':')))
+	path = ft_split(get_env_str("PATH", env), ':');
+	if (!path)
 		return (NULL);
 	i = 0;
 	while (path[i])
