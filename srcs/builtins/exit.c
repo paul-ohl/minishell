@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:42:59 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/05 13:31:30 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/06 13:37:45 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	free_env(t_env *env)
 
 void	free_cmd(t_command *command)
 {
-	free(command->cmd);
+	if (command->cmd)
+		free(command->cmd);
 	command->cmd = NULL;
 }
 
@@ -67,7 +68,6 @@ void	ft_exit(t_env *env, t_command *command, char **argv)
 	}
     else
 		exit_code = 0;
-	free_cmd(command);
 	free_env(env);
 	exit(exit_code);
 }
