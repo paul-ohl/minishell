@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 20:00:02 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/07 20:17:41 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	start(int argc, char **argv, char **envp)
 
 	argc = 0;
 	argv = NULL;
-	if (!(buf = (char *)malloc(sizeof(*buf) * MAX_CMD_LEN)))
+	buf = (char *)malloc(sizeof(*buf) * MAX_CMD_LEN);
+	if (!buf)
 		return (GLOB_ERR_MALLOC);
 	if (!init_struct(envp, &command))
 		return (GLOB_ERR_MALLOC);
@@ -59,11 +60,4 @@ int	main(int argc, char **argv, char **envp)
 	return (start(argc, argv, envp));
 	return (singleton()->return_value);
 	start(argc, argv, envp);
-}
-
-void end() __attribute__((destructor));
-
-void end()
-{
-	/* system("leaks minishell"); */
 }
