@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:02:14 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/04 17:19:15 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:32:13 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include <stdlib.h>
 #include "../inc/minishell.h"
 #include "../libft/libft.h"
- 
+
 void	unset_loop(t_env *prev, t_env *env, char **argv)
 {
-	int	i;
+	int		i;
 	t_env	*tmp;
-	
+
 	i = 0;
 	while (argv[++i])
 	{
@@ -30,7 +30,7 @@ void	unset_loop(t_env *prev, t_env *env, char **argv)
 			if (!ft_strcmp(argv[i], prev->name))
 			{
 				tmp->next = prev->next;
-				break;
+				break ;
 			}
 			prev = prev->next;
 			tmp = tmp->next;

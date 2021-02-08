@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:44:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/05 14:22:09 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:23:55 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ int	update_oldpwd(t_env *env)
 
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (1);
-	if (!(oldpwd = ft_strjoin("OLDPWD=", cwd)))
+	oldpwd = ft_strjoin("OLDPWD=", cwd);
+	if (!oldpwd)
 		return (1);
 	if (is_in_env(env, oldpwd) == 0)
 		change_value(env, oldpwd);
-	ft_memdel(oldpwd);
+	// ft_memdel(oldpwd);
 	return (0);
 }
 
@@ -59,11 +60,12 @@ int	update_pwd(t_env *env)
 
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (1);
-	if (!(pwd = ft_strjoin("PWD=", cwd)))
+	pwd = ft_strjoin("PWD=", cwd);
+	if (!pwd)
 		return (1);
 	if (is_in_env(env, pwd) == 0)
 		change_value(env, pwd);
-	ft_memdel(pwd);
+	// ft_memdel(oldpwd);
 	return (0);
 }
 

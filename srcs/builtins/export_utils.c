@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 08:45:28 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/02 12:03:37 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:38:12 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ char	*ft_strjoin_free(char *s1, char *s2, char state)
 		return (s2);
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
-	if (!(str = ft_calloc(len_s1 + len_s2 + 2, sizeof(char))))
+	str = ft_calloc(len_s1 + len_s2 + 2, sizeof(char));
+	if (!str)
 		return (NULL);
 	ft_memcpy(str, s1, len_s1 + 1);
 	ft_memcpy(str + len_s1, s2, len_s2);
-	state == 1 || state == 3 ? free(s1) : 0;
-	state == 2 || state == 3 ? free(s2) : 0;
+	if (state == 1 || state == 3)
+		free(s1);
+	if (state == 2 || state == 3)
+		free(s2);
 	return (str);
 }
 
@@ -43,8 +46,9 @@ void	export_print(char **tab)
 	i = -1;
 	while (tab[++i])
 	{
-		printf("declare -x %s=\"%s\"\n", ft_substr(tab[i], 0, len_env(tab[i])), ft_substr(tab[i], len_env(tab[i]) + 1,
-					ft_strlen(tab[i]) - len_env(tab[i]) - 1));
+		printf("declare -x %s=\"%s\"\n", ft_substr(tab[i], 0,
+				len_env(tab[i])), ft_substr(tab[i], len_env(tab[i]) + 1,
+				ft_strlen(tab[i]) - len_env(tab[i]) - 1));
 	}
 }
 
@@ -97,7 +101,8 @@ int	print_env_alphasort(t_env *env)
 
 	i = -1;
 	tmp = env;
-	if (!(tab = ft_calloc(sizeof(char*), (env_size(env) + 1))))
+	tab = ft_calloc(sizeof(char*), (env_size(env) + 1));
+	if (!tab)
 		return (0);
 	tmp = env;
 	while (tmp)
