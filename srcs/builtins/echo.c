@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 15:10:43 by nomoon            #+#    #+#             */
-/*   Updated: 2021/01/24 10:01:17 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:24:24 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	nb_args(char **args)
 	return (size);
 }
 
-int				ft_echo(char **args)
+int	ft_echo(char **args)
 {
 	int		i;
 	int		n_option;

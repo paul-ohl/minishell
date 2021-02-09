@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:42:59 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/07 19:59:09 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:27:54 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,17 @@ void	free_cmd(t_command *command)
 void	ft_exit(t_env *env, char **argv)
 {
 	unsigned char	exit_code;
-	/* char			*env_status; */
 
-	// env_status = ft_getenv(env_list, STATUS_CODE_KEY); //AJOUTER RETURN VALUE
 	exit_code = 1;
-	// else if (env_status != NULL)
-	// 	exit_code = (unsigned char)ft_atoi(env_status); //REVOIR EN CAS DENV VIDE
 	printf("exit\n");
-    if (count_argv(argv) >= 2)
+	if (count_argv(argv) >= 2)
 	{
 		if (str_is_number(argv[1]) == 1)
 			exit_code = (unsigned char)ft_atoi(argv[1]);
 		else
 			printf("exit: First argument should be numeric.\n");
 	}
-    else
+	else
 		exit_code = 0;
 	free_env(env);
 	exit(exit_code);

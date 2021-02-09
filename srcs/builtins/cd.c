@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 23:25:31 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/05 15:48:15 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:21:35 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,15 @@
 
 static void	print_error(char **args)
 {
-	printf("count arg%d\n", count_argv(args));
-	if (count_argv(args) >= 2 && args[1][0] == '-')
-		printf("1\n");
-	if (count_argv(args) >= 2 && args[1][0] == '-' && ft_strlen(args[1]) > 1 &&
-		ft_isprint(args[1][1]))
-	{
-		printf("bash: cd: %s: invalid option", args[1]);
-		printf("cd: usage: cd [-L|-P] [dir]");
-	}
+	ft_putstr_fd("cd: ", 2);
+	if (args[2])
+		ft_putstr_fd("string not in pwd: ", 2);
 	else
 	{
-		printf("atg 0 %s\n", args[0]);
-		printf("atg 1 %s\n", args[1]);
-		ft_putstr_fd("cd: ", 2);
-		if (args[2])
-			ft_putstr_fd("string not in pwd: ", 2);
-		else
-		{
-			printf("123\n");
-			ft_putstr_fd(strerror(errno), 2);
-			ft_putstr_fd(": ", 2);
-		}
-		ft_putendl_fd(args[1], 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(": ", 2);
 	}
+	ft_putendl_fd(args[1], 2);
 }
 
 char	*get_env_path(t_env *env, const char *var, size_t len)
@@ -55,7 +40,8 @@ char	*get_env_path(t_env *env, const char *var, size_t len)
 	{
 		if (!ft_strncmp(tmp->name, var, len))
 		{
-			if (!(oldpwd = malloc(sizeof(char) * ft_strlen(tmp->value) + 1)))
+			oldpwd = malloc(sizeof(char) * (ft_strlen(tmp->value) + 1));
+			if (!oldpwd)
 				return (NULL);
 			oldpwd = tmp->value;
 			oldpwd[ft_strlen(tmp->value)] = '\0';
@@ -68,8 +54,8 @@ char	*get_env_path(t_env *env, const char *var, size_t len)
 
 static int	go_to_patho1(char *env_path, t_env *env)
 {
-	int ret;
-	
+	int	ret;
+
 	ret = chdir(env_path);
 	update_pwd(env);
 	return (ret);
@@ -84,6 +70,7 @@ static int	go_to_path(int option, t_env *env)
 	{
 		update_oldpwd(env);
 		env_path = get_env_path(env, "HOME", 4);
+		printf("%s\n", env_path);
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: HOME not set", 2);
 		if (!env_path)
@@ -98,7 +85,7 @@ static int	go_to_path(int option, t_env *env)
 			return (1);
 		update_oldpwd(env);
 	}
-	return(go_to_patho1(env_path, env));
+	return (go_to_patho1(env_path, env));
 }
 
 int	ft_cd(char **args, t_env *env)

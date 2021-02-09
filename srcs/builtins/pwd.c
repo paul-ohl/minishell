@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:16:15 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/05 13:26:01 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:34:14 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../libft/libft.h"
 #include <limits.h>
 
-int		pwd_error(char *argv)
+int	pwd_error(char *argv)
 {
 	if (ft_strlen(argv) > 1)
 	{
@@ -34,7 +34,7 @@ int	ft_pwd(t_env *env, char **argv)
 {
 	t_env	*tmp;
 	char	cwd[PATH_MAX];
-	
+
 	tmp = env;
 	if (count_argv(argv) >= 2)
 		if (pwd_error(argv[1]) == 1)

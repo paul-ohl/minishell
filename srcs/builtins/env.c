@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:53:18 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/05 13:20:43 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/08 15:46:59 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	len_env(char *str)
 
 int	env_error(char **argv)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (count_argv(argv) >= 2)
@@ -75,7 +75,8 @@ t_env	*stock_env(char **envp)
 	t_env	*new;
 	t_env	*env;
 
-	if (!(env = (t_env *)malloc(sizeof(t_env))))
+	env = (t_env *)malloc(sizeof(t_env));
+	if (!env)
 		return (NULL);
 	tmp = env;
 	env->name = ft_substr(envp[0], 0, len_env(envp[0]));
@@ -84,6 +85,8 @@ t_env	*stock_env(char **envp)
 	i = 0;
 	while (envp[++i])
 	{
+		if (!(new = malloc(sizeof(t_env))))
+			return (NULL);
 		if (!(new = malloc(sizeof(t_env))))
 			return (NULL);
 		new->name = ft_substr(envp[i], 0, len_env(envp[i]));
