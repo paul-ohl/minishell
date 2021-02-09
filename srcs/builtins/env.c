@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:53:18 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/08 15:46:59 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:11:19 by elbouju          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,20 @@ int	print_env(t_env *env, char **argv)
 	return (0);
 }
 
+t_env	*stock_env_p2(char **envp, int i)
+{
+	t_env	*new;
+
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->name = ft_substr(envp[i], 0, len_env(envp[i]));
+	new->value = ft_substr(envp[i], len_env(envp[i]) + 1,
+			ft_strlen(envp[i]) - len_env(envp[i]) - 1);
+	new->next = NULL;
+	return (new);
+}
+
 t_env	*stock_env(char **envp)
 {
 	int		i;
@@ -85,14 +99,9 @@ t_env	*stock_env(char **envp)
 	i = 0;
 	while (envp[++i])
 	{
-		if (!(new = malloc(sizeof(t_env))))
+		new = stock_env_p2(envp, i);
+		if (!new)
 			return (NULL);
-		if (!(new = malloc(sizeof(t_env))))
-			return (NULL);
-		new->name = ft_substr(envp[i], 0, len_env(envp[i]));
-		new->value = ft_substr(envp[i], len_env(envp[i]) + 1,
-				ft_strlen(envp[i]) - len_env(envp[i]) - 1);
-		new->next = NULL;
 		env->next = new;
 		env = env->next;
 	}
