@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/08 15:33:40 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/09 20:45:07 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ int	check_name(char *str)
 	if (ft_isdigit(str[0]))
 		return (2);
 	while (str[++i])
+	{
+		if (str[i] == '\\' || ft_isalpha(str[i]) == 0 ||
+			ft_isdigit(str[i]) == 0)
+			return (2);
 		if (str[i] == '=')
 			return (0);
+	}
 	return (1);
 }
 
