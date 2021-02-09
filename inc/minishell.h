@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/09 09:10:41 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:51:26 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,8 @@ bool		str_check(char *str, int *err, t_command *command);
 void		print_redirection_error(char *redirection);
 bool		handle_redirection(t_command *command, int *i, int *start);
 void		close_two(int fd[2]);
+int			get_processed_len(t_command *command, int start, int end);
+int			skip_initial_whitespaces(char *str);
+int			arg_count(char *str);
 
 #endif

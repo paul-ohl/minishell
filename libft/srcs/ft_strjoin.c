@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 14:09:08 by pohl              #+#    #+#             */
-/*   Updated: 2021/02/08 15:00:57 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:04:02 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	buffer[i + j] = 0;
 	return (buffer);
 }
-
