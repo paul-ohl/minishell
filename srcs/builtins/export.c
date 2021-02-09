@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/09 20:45:07 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/09 20:54:53 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	check_name(char *str)
 		return (2);
 	while (str[++i])
 	{
-		if (str[i] == '\\' || ft_isalpha(str[i]) == 0 ||
-			ft_isdigit(str[i]) == 0)
-			return (2);
+		if (ft_isdigit(str[i]) == 0 && ft_isalpha(str[i]) == 0)
+			if (!(str[i] == '=' || str[i] == '+'))
+				return (2);
 		if (str[i] == '=')
 			return (0);
 	}
