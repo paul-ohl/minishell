@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/09 10:35:50 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:01:08 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ int	print_prompt(char *buf)
 	write(1, "$> ", 3);
 	n = read(0, buf, MAX_CMD_LEN);
 	if (!n)
-	{
-		n = read(0, buf, MAX_CMD_LEN);
-		if (!n)
-			return (0);
-	}
+		return (0);
 	buf[n - 1] = 0;
 	return (n);
 }
