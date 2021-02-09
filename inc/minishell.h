@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 20:26:07 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/09 09:10:41 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,6 @@ bool		set_error_code(t_command *cmd, int *error_var, const int err_code);
 bool		str_check(char *str, int *err, t_command *command);
 void		print_redirection_error(char *redirection);
 bool		handle_redirection(t_command *command, int *i, int *start);
+void		close_two(int fd[2]);
 
 #endif

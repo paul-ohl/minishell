@@ -6,12 +6,18 @@
 /*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:31:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 20:14:28 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/08 08:53:53 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <string.h>
+
+void	close_two(int fd[2])
+{
+	close(fd[0]);
+	close(fd[1]);
+}
 
 void	dup_selector(int to_dup[2], t_command *command, int new_pipe_out)
 {
@@ -34,10 +40,7 @@ int	slave_action(int to_dup[2], t_command *cmd, char *path, char **argv)
 	dup2(to_dup[0], 0);
 	dup2(to_dup[1], 1);
 	if (cmd->type_in == '|')
-	{
-		close(cmd->pipe_fd[0]);
-		close(cmd->pipe_fd[1]);
-	}
+		close_two(cmd->pipe_fd);
 	envp = to_string_array(cmd->env);
 	if (!envp)
 		return (false);
@@ -64,10 +67,7 @@ bool	program_handler(char *path, t_command *cmd, char **argv)
 	else
 	{
 		if (cmd->type_in == '|')
-		{
-			close(cmd->pipe_fd[0]);
-			close(cmd->pipe_fd[1]);
-		}
+			close_two(cmd->pipe_fd);
 		waitpid(pid, &cmd->return_value, 0);
 		cmd->pipe_fd[0] = new_pipe[0];
 		cmd->pipe_fd[1] = new_pipe[1];
