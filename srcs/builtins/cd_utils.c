@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:44:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/08 15:23:55 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/10 22:16:31 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	update_oldpwd(t_env *env)
 		return (1);
 	if (is_in_env(env, oldpwd) == 0)
 		change_value(env, oldpwd);
-	// ft_memdel(oldpwd);
+	ft_memdel(oldpwd);
 	return (0);
 }
 
@@ -65,7 +65,7 @@ int	update_pwd(t_env *env)
 		return (1);
 	if (is_in_env(env, pwd) == 0)
 		change_value(env, pwd);
-	// ft_memdel(oldpwd);
+	ft_memdel(pwd);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 23:25:31 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/08 15:21:35 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/10 22:14:42 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static int	go_to_path(int option, t_env *env)
 	{
 		update_oldpwd(env);
 		env_path = get_env_path(env, "HOME", 4);
-		printf("%s\n", env_path);
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: HOME not set", 2);
 		if (!env_path)

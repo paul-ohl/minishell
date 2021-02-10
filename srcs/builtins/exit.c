@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 08:42:59 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/08 15:27:54 by elbouju          ###   ########.fr       */
+/*   Updated: 2021/02/10 20:24:46 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ void	free_env(t_env *env)
 	}
 }
 
-void	free_cmd(t_command *command)
-{
-	if (command->cmd)
-		free(command->cmd);
-	command->cmd = NULL;
-}
-
 void	ft_exit(t_env *env, char **argv)
 {
 	unsigned char	exit_code;
@@ -58,9 +51,16 @@ void	ft_exit(t_env *env, char **argv)
 	if (count_argv(argv) >= 2)
 	{
 		if (str_is_number(argv[1]) == 1)
+		{
+			if (count_argv(argv) >= 3)
+			{
+				printf("bash: exit: too many arguments\n");
+				return ;
+			}
 			exit_code = (unsigned char)ft_atoi(argv[1]);
-		else
-			printf("exit: First argument should be numeric.\n");
+		}
+		else if (str_is_number(argv[1]) != 1)
+			printf("bash: exit: %s: numeric argument required\n", argv[1]);
 	}
 	else
 		exit_code = 0;
