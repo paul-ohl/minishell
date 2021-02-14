@@ -6,7 +6,7 @@
 /*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/09 15:51:26 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/14 12:20:42 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ void		close_two(int fd[2]);
 int			get_processed_len(t_command *command, int start, int end);
 int			skip_initial_whitespaces(char *str);
 int			arg_count(char *str);
+int			get_user_input(char **line);
 
 #endif
