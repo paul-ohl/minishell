@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/09 12:43:27 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:46:40 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ int	count_argv(char **argv)
 
 void	builtin_exec(char *path, t_command *cmd, char **argv)
 {
-	cmd->return_value = 0;
+	g_last_return = 0;
 	if (!path)
-		cmd->return_value = 1;
+		g_last_return = 1;
 	else if (!ft_strcmp(path, "pwd"))
-		cmd->return_value = ft_pwd(cmd->env, argv);
+		g_last_return = ft_pwd(cmd->env, argv);
 	else if (!ft_strcmp(path, "env"))
-		cmd->return_value = print_env(cmd->env, argv);
+		g_last_return = print_env(cmd->env, argv);
 	else if (!ft_strcmp(path, "export"))
-		cmd->return_value = export_check(cmd->env, argv);
+		g_last_return = export_check(cmd->env, argv);
 	else if (!ft_strcmp(path, "unset"))
-		cmd->return_value = unset(cmd->env, argv);
+		g_last_return = unset(cmd->env, argv);
 	else if (!ft_strcmp(path, "echo"))
-		cmd->return_value = ft_echo(argv);
+		g_last_return = ft_echo(argv);
 	else if (!ft_strcmp(path, "cd"))
-		cmd->return_value = ft_cd(argv, cmd->env);
+		g_last_return = ft_cd(argv, cmd->env);
 	else if (!ft_strcmp(path, "exit"))
 		ft_exit(cmd->env, argv);
 }

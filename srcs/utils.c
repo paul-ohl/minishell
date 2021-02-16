@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 15:21:50 by pohl              #+#    #+#             */
-/*   Updated: 2021/02/07 19:58:40 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:44:15 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	init_struct(char **envp, t_command **command)
 	(*command)->type_in = ';';
 	(*command)->type_out = ';';
 	(*command)->pipe = PIPE_NO;
-	(*command)->return_value = 0;
 	(*command)->env = stock_env(envp);
 	return (1);
 }

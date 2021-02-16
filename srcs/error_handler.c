@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 11:11:39 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 20:22:53 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:51:34 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	print_redirection_error(char *redirection)
 	free(redirection);
 }
 
-bool	set_error_code(t_command *command, int *error_var, const int error_code)
+bool	set_error_code(int *error_var, const int error_code)
 {
 	if (error_code)
-		command->return_value = 258;
+		g_last_return = 258;
 	*error_var = error_code;
 	if (error_code)
 		return (false);
 	return (true);
 }
 
-bool	syntax_check(char *str, int *err, t_command *command)
+bool	syntax_check(char *str, int *err)
 {
 	int		i;
 
@@ -41,12 +41,12 @@ bool	syntax_check(char *str, int *err, t_command *command)
 	while (str[i] == ' ')
 		str++;
 	if (str[i] == '|')
-		return (set_error_code(command, err, SYN_ERR_PIPE));
+		return (set_error_code(err, SYN_ERR_PIPE));
 	if (str[i] == ';')
-		return (set_error_code(command, err, SYN_ERR_SEMICOL));
-	if (!str_check(str + i, err, command))
+		return (set_error_code(err, SYN_ERR_SEMICOL));
+	if (!str_check(str + i, err))
 		return (false);
-	return (set_error_code(command, err, SYNTAX_CLEAR));
+	return (set_error_code(err, SYNTAX_CLEAR));
 }
 
 void	print_syntax_error(int err)

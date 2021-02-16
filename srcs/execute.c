@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:31:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/15 17:14:10 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:41:21 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool	program_handler(char *path, t_command *cmd, char **argv)
 	{
 		if (cmd->type_in == '|')
 			close_two(cmd->pipe_fd);
-		waitpid(pid, &cmd->return_value, 0);
+		waitpid(pid, &g_last_return, 0);
 		cmd->pipe_fd[0] = new_pipe[0];
 		cmd->pipe_fd[1] = new_pipe[1];
 	}

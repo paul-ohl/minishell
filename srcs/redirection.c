@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 20:24:30 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/15 17:22:03 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:52:31 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minishell.h"
 #include <fcntl.h>
 
-int	get_fd(char *redirection, char type, t_command *command)
+int	get_fd(char *redirection, char type)
 {
 	int		flags;
 	int		fd;
@@ -31,7 +31,7 @@ int	get_fd(char *redirection, char type, t_command *command)
 	if (fd == -1)
 	{
 		print_redirection_error(redirection);
-		command->return_value = 1;
+		g_last_return = 1;
 		free(redirection);
 		return (0);
 	}
@@ -72,7 +72,7 @@ bool	get_redirect(t_command *command, int *i)
 	if (!redirection)
 		return (false);
 	*i = end_of_redirection;
-	fd = get_fd(redirection, type, command);
+	fd = get_fd(redirection, type);
 	if (!fd)
 		return (false);
 	set_redirect_fd(command, type, fd);

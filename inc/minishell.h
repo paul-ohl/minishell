@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/14 12:20:42 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:53:41 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <errno.h>
 # include <limits.h>
 # include <signal.h>
+# include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # define MAX_CMD_LEN 262144
 # define PIPE_YES 'y'
 # define PIPE_NO 'n'
@@ -39,6 +42,7 @@
 */
 
 pid_t	g_sig;
+int		g_last_return;
 
 enum e_error_codes
 {
@@ -65,7 +69,6 @@ typedef struct s_command {
 	char	type_out;
 	int		fd_in;
 	int		fd_out;
-	int		return_value;
 	int		pipe_fd[2];
 	t_env	*env;
 }t_command;
@@ -77,7 +80,7 @@ char		**parse_command(t_command *cmd, int argc);
 char		*get_word(t_command *cmd, int st, int end);
 char		*get_env(t_command *cmd, int *i);
 char		**free_argv(char **argv, int argc, char *exec_path);
-bool		syntax_check(char *str, int *err, t_command *command);
+bool		syntax_check(char *str, int *err);
 void		print_syntax_error(int err);
 int			init_struct(char **envp, t_command **command);
 void		set_redirect_fd(t_command *command, char type, int fd);
@@ -115,8 +118,8 @@ t_command	*singleton(void);
 void		ft_exit(t_env *env, char **argv);
 void		reinit_struct(t_command *command);
 char		*ft_strjoin_free(char *s1, char *s2, char state);
-bool		set_error_code(t_command *cmd, int *error_var, const int err_code);
-bool		str_check(char *str, int *err, t_command *command);
+bool		set_error_code(int *error_var, const int err_code);
+bool		str_check(char *str, int *err);
 void		print_redirection_error(char *redirection);
 bool		handle_redirection(t_command *command, int *i, int *start);
 void		close_two(int fd[2]);

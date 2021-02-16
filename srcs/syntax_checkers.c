@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_checkers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 20:05:24 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 20:12:41 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:50:59 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-bool	check_redirect(char *str, int i, int *err, t_command *command)
+bool	check_redirect(char *str, int i, int *err)
 {
 	if (str[i] != '>' && str[i] != '<')
 		return (true);
@@ -22,7 +22,7 @@ bool	check_redirect(char *str, int i, int *err, t_command *command)
 	while (str[i] == ' ')
 		i++;
 	if (ft_strchr("><;|", str[i]))
-		return (set_error_code(command, err, SYN_ERR_REDIR));
+		return (set_error_code(err, SYN_ERR_REDIR));
 	return (true);
 }
 
@@ -42,28 +42,28 @@ bool	check_quotes(char *str, int *original_iterator)
 	return (true);
 }
 
-bool	check_cmd_separators(char *str, int i, int *err, t_command *command)
+bool	check_cmd_separators(char *str, int i, int *err)
 {
 	char	current_char;
 
 	current_char = str[i];
 	if (current_char != '|' && current_char != ';')
-		return (set_error_code(command, err, SYNTAX_CLEAR));
+		return (set_error_code(err, SYNTAX_CLEAR));
 	if (current_char == '|' && str[i + 1] == '|')
-		return (set_error_code(command, err, SYN_NO_SUP_OR));
+		return (set_error_code(err, SYN_NO_SUP_OR));
 	i++;
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '|')
-		return (set_error_code(command, err, SYN_ERR_PIPE));
+		return (set_error_code(err, SYN_ERR_PIPE));
 	if (str[i] == ';')
-		return (set_error_code(command, err, SYN_ERR_SEMICOL));
+		return (set_error_code(err, SYN_ERR_SEMICOL));
 	else if (current_char == '|' && !str[i])
-		return (set_error_code(command, err, SYN_ERR_PIPE));
+		return (set_error_code(err, SYN_ERR_PIPE));
 	return (true);
 }
 
-bool	str_check(char *str, int *err, t_command *command)
+bool	str_check(char *str, int *err)
 {
 	int	i;
 
@@ -74,16 +74,16 @@ bool	str_check(char *str, int *err, t_command *command)
 		{
 			i++;
 			if (!str[i])
-				return (set_error_code(command, err, SYN_ERR_BKSL));
+				return (set_error_code(err, SYN_ERR_BKSL));
 		}
 		else if (!check_quotes(str, &i))
-			return (set_error_code(command, err, SYN_ERR_QUOT));
-		else if (!check_cmd_separators(str, i, err, command))
+			return (set_error_code(err, SYN_ERR_QUOT));
+		else if (!check_cmd_separators(str, i, err))
 			return (false);
-		else if (!check_redirect(str, i, err, command))
+		else if (!check_redirect(str, i, err))
 			return (false);
 		else if (str[i] == '&' && str[i + 1] == '&')
-			return (set_error_code(command, err, SYN_NO_SUP_AND));
+			return (set_error_code(err, SYN_NO_SUP_AND));
 	}
 	return (true);
 }

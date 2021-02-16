@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/15 12:18:17 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:52:07 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	start(int argc, char **argv, char **envp)
 	{
 		if (print_prompt(&buf))
 			ft_exit(command->env, NULL);
-		if (!syntax_check(buf, &err, command))
+		if (!syntax_check(buf, &err))
 			print_syntax_error(err);
 		else
 			parser(buf, command);

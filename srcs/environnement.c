@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environnement.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 16:00:45 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 19:51:49 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:44:33 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_env(t_command *command, int *i)
 	if (command->cmd[(*i)++] != '$')
 		return ("");
 	if (command->cmd[*i] == '?')
-		return (ft_itoa(command->return_value));
+		return (ft_itoa(g_last_return));
 	env_var = get_env_str(command->cmd + *i, command->env);
 	while (ft_isalnum(command->cmd[*i]) || command->cmd[*i] == '_')
 		(*i)++;

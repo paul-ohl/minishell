@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elbouju <elbouju@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:37:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/07 20:18:16 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:35:19 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	sigquit_handler(int signal)
 	}
 	if (g_sig > 0)
 		kill(g_sig, signal);
-	singleton()->return_value = status;
+	//singleton()->return_value = status;
+	g_last_return = status;
 	if (tmp > -1 && WIFSIGNALED(status))
 		write(1, "Quit: (core dumped)\n", 21);
 }
@@ -39,13 +40,14 @@ void	sigint_handler(int signal)
 	tmp = waitpid(-1, &status, WUNTRACED);
 	if (tmp == -1 && g_sig == -1)
 	{
-		write(1, "\b\b  \b\b\n$> ", 11);
-		singleton()->return_value = 130; //val return
+		//singleton()->return_value = 130; //val return
+		g_last_return = 130;
 		return ;
 	}
 	if (g_sig > 0) //fork process id
 		kill(g_sig, signal);
-	singleton()->return_value = status;
+	//singleton()->return_value = status;
+	g_last_return = status;
 	if (tmp > -1 && WIFSIGNALED(status))
 		write(1, "\n", 1);
 	if (singleton()->cmd)

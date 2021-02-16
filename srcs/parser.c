@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/16 09:01:43 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:47:40 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int	get_next_command(t_command *command, char *buffer)
 	return (true);
 }
 
-void	print_executable_path_error(char *executable_path, t_command *command)
+void	print_executable_path_error(char *executable_path)
 {
 	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(executable_path, 2);
 	ft_putstr_fd(": command not found\n", 2);
-	command->return_value = 1;
+	g_last_return = 1;
 }
 
 bool	parser(char *buffer, t_command *command)
@@ -94,7 +94,7 @@ bool	parser(char *buffer, t_command *command)
 		argv[argc] = 0;
 		executable_path = get_executable_path(argv[0], command->env);
 		if (!executable_path)
-			print_executable_path_error(argv[0], command);
+			print_executable_path_error(argv[0]);
 		if (!execute(executable_path, command, argv))
 			printf("error: %s\n", strerror(errno));
 		argv = free_argv(argv, argc, executable_path);
