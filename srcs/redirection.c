@@ -6,7 +6,7 @@
 /*   By: paulohl <pohl@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 20:24:30 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/07 20:27:58 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/15 17:22:03 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	get_fd(char *redirection, char type, t_command *command)
 	{
 		print_redirection_error(redirection);
 		command->return_value = 1;
+		free(redirection);
 		return (0);
 	}
 	free(redirection);
@@ -63,15 +64,15 @@ bool	get_redirect(t_command *command, int *i)
 	int		end_of_redirection;
 	int		fd;
 	char	type;
-	char	*redirect;
+	char	*redirection;
 
 	type = set_redirect_type(command, i);
 	end_of_redirection = skip_redirect(command->cmd, *i);
-	redirect = get_word(command, *i, end_of_redirection);
-	if (!redirect)
+	redirection = get_word(command, *i, end_of_redirection);
+	if (!redirection)
 		return (false);
 	*i = end_of_redirection;
-	fd = get_fd(redirect, type, command);
+	fd = get_fd(redirection, type, command);
 	if (!fd)
 		return (false);
 	set_redirect_fd(command, type, fd);

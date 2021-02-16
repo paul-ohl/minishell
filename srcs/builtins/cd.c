@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 23:25:31 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/10 22:14:42 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 08:57:30 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ char	*get_env_path(t_env *env, const char *var, size_t len)
 			oldpwd = malloc(sizeof(char) * (ft_strlen(tmp->value) + 1));
 			if (!oldpwd)
 				return (NULL);
-			oldpwd = tmp->value;
-			oldpwd[ft_strlen(tmp->value)] = '\0';
+			ft_strcpy(oldpwd, tmp->value);
 			return (oldpwd);
 		}
 		tmp = tmp->next;
@@ -58,6 +57,8 @@ static int	go_to_patho1(char *env_path, t_env *env)
 
 	ret = chdir(env_path);
 	update_pwd(env);
+	if (env_path)
+		free(env_path);
 	return (ret);
 }
 
@@ -106,8 +107,8 @@ int	ft_cd(char **args, t_env *env)
 			cd_ret *= -1;
 		if (cd_ret != 0)
 		{
-			if (temp != NULL)
-				ft_strjoin_free("OLDPWD=", temp, 4);
+			/* if (temp != NULL) */
+			/* 	ft_strjoin_free("OLDPWD=", temp, 4); */
 			print_error(args);
 		}
 		if (temp)

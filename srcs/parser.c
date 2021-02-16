@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/09 15:50:41 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/16 09:01:43 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ bool	parser(char *buffer, t_command *command)
 		argv = parse_command(command, argc);
 		if (!argv)
 			continue ;
+		if (argv[argc])
+			free(argv[argc]);
 		argv[argc] = 0;
 		executable_path = get_executable_path(argv[0], command->env);
 		if (!executable_path)
@@ -96,6 +98,7 @@ bool	parser(char *buffer, t_command *command)
 		if (!execute(executable_path, command, argv))
 			printf("error: %s\n", strerror(errno));
 		argv = free_argv(argv, argc, executable_path);
+		reset_fds(command);
 		argc = 0;
 	}
 	return (true);

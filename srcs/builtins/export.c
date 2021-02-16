@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:40:48 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/10 22:13:00 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 08:43:39 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	change_value(t_env *env, char *argv)
 	{
 		if (!ft_strcmp(compared_string, tmp->name))
 		{
+			if (tmp->value)
+				free(tmp->value);
 			tmp->value = ft_substr(argv, len_env(argv) + 1,
 					ft_strlen(argv) - len_env(argv) - 1);
 			free(compared_string);
