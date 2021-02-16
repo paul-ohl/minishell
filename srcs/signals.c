@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:37:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/16 18:56:27 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 18:57:56 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void	sigint_handler(int signal)
 		g_last_return = 130;
 		return ;
 	}
-	if (g_fg_proc > 0) //fork process id
+	if (g_fg_proc > 0)
 		kill(g_fg_proc, signal);
 	g_last_return = 130;
 	if (tmp > -1 && WIFSIGNALED(status))
 		write(1, "\n", 1);
 	if (singleton()->cmd)
 	{
-		free(singleton()->cmd); //free
+		free(singleton()->cmd);
 		singleton()->cmd = NULL;
 	}
 }
