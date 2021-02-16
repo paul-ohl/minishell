@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/16 14:53:41 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 18:31:54 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 ** it is set to errno when an error is encountered.
 */
 
-pid_t	g_sig;
+pid_t	g_fg_proc;
 int		g_last_return;
 
 enum e_error_codes

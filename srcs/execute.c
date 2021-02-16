@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:31:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/16 14:41:21 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 16:06:02 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,20 @@ bool	program_handler(char *path, t_command *cmd, char **argv)
 {
 	int		to_dup[2];
 	int		new_pipe[2];
-	pid_t	pid;
 
 	if ((cmd->type_out == '|' || cmd->pipe == PIPE_YES) && pipe(new_pipe))
 		return (false);
-	pid = fork();
-	if (pid < 0)
+	g_fg_proc = fork();
+	if (g_fg_proc < 0)
 		return (false);
 	dup_selector(to_dup, cmd, new_pipe[1]);
-	if (pid == 0)
+	if (g_fg_proc == 0)
 		return (slave_action(to_dup, cmd, path, argv));
 	else
 	{
 		if (cmd->type_in == '|')
 			close_two(cmd->pipe_fd);
-		waitpid(pid, &g_last_return, 0);
+		waitpid(g_fg_proc, &g_last_return, 0);
 		cmd->pipe_fd[0] = new_pipe[0];
 		cmd->pipe_fd[1] = new_pipe[1];
 	}

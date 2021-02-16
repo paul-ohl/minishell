@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/16 14:58:57 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 18:31:44 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	start(char **envp)
 		return (GLOB_ERR_MALLOC);
 	while (1)
 	{
+		g_fg_proc = -1;
 		if (print_prompt(&buf))
 			ft_exit(command->env, NULL);
 		if (!syntax_check(buf, &err))
@@ -53,7 +54,6 @@ int	start(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	g_sig = -1;
 	(void)argc;
 	(void)argv;
 	signal(SIGINT, sigint_handler);
