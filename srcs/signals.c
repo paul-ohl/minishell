@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:37:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/16 15:01:04 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 15:06:01 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sigquit_handler(int signal)
 	}
 	if (g_sig > 0)
 		kill(g_sig, signal);
-	g_last_return = status;
+	g_last_return = 131;
 	if (tmp > -1 && WIFSIGNALED(status))
 		write(1, "Quit: (core dumped)\n", 21);
 }
