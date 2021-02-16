@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:37:15 by elbouju           #+#    #+#             */
-/*   Updated: 2021/02/16 14:56:53 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 15:01:04 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	sigint_handler(int signal)
 	tmp = waitpid(-1, &status, WUNTRACED);
 	if (tmp == -1 && g_sig == -1)
 	{
+		write(1, "\b\b  \b\b\n$> ", 11);
 		g_last_return = 130;
 		return ;
 	}
