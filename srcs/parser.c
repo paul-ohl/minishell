@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:52 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/16 14:47:40 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 19:42:52 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ bool	reset_counter(int *i, bool return_value)
 {
 	*i = 0;
 	return (return_value);
+}
+
+int	skip_initial_whitespaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] == ' ')
+		i++;
+	return (i);
 }
 
 /*

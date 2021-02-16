@@ -15,7 +15,7 @@ SRCS		= parser.c prompt.c utils.c parse_command.c interpret_string.c \
 
 # Compiler options
 CC			= gcc
-CFLAGS		= -Wall -Wextra -g3 #-fsanitize=address
+CFLAGS		= -Wall -Wextra -g3 -fsanitize=address
 
 ###################################################
 # The rest is done by the MakeFile automatically, #

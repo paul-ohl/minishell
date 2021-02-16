@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 20:24:30 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/16 14:52:31 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 19:51:35 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	get_fd(char *redirection, char type)
 	{
 		print_redirection_error(redirection);
 		g_last_return = 1;
-		free(redirection);
 		return (0);
 	}
 	free(redirection);
