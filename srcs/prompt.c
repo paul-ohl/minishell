@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/16 14:52:07 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/16 14:58:57 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,12 @@ int	print_prompt(char **buf)
 	return (input_return);
 }
 
-int	start(int argc, char **argv, char **envp)
+int	start(char **envp)
 {
 	char		*buf;
 	int			err;
 	t_command	*command;
 
-	argc = 0;
-	argv = NULL;
 	if (!init_struct(envp, &command))
 		return (GLOB_ERR_MALLOC);
 	while (1)
@@ -56,7 +54,9 @@ int	start(int argc, char **argv, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	g_sig = -1;
+	(void)argc;
+	(void)argv;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
-	return (start(argc, argv, envp));
+	return (start(envp));
 }
