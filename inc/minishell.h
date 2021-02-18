@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:29 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/16 19:27:31 by paulohl          ###   ########.fr       */
+/*   Updated: 2021/02/18 18:22:48 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,7 @@ int			get_processed_len(t_command *command, int start, int end);
 int			skip_initial_whitespaces_or_redir(char *str);
 int			arg_count(char *str);
 int			get_user_input(char **line);
+void		reinit_struct(t_command *command);
+bool		reset_counter(int *i, bool return_value);
 
 #endif

@@ -11,7 +11,7 @@ SRCS		= parser.c prompt.c utils.c parse_command.c interpret_string.c \
 			  builtins/pwd.c builtins/unset.c builtins/echo.c builtins/cd.c \
 			  builtins/cd_utils.c builtins/export_utils.c signals.c singleton.c \
 			  builtins/exit.c syntax_checkers.c redirection.c get_processed_len.c \
-			  arg_count.c get_user_input.c
+			  arg_count.c get_user_input.c reseter.c
 
 # Compiler options
 CC			= gcc

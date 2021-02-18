@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:20:27 by nomoon            #+#    #+#             */
-/*   Updated: 2021/02/16 14:46:40 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/18 18:24:59 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,7 @@ void	reset_fd_to_std(int to_dup[2], int svg_fd[2])
 {
 	if (to_dup[1] != 1)
 	{
-		close(to_dup[1]);
 		dup2(svg_fd[1], 1);
-		close(svg_fd[1]);
-	}
-	if (to_dup[0] != 0)
-	{
-		close(to_dup[0]);
-		close(svg_fd[0]);
 	}
 }
 
@@ -95,8 +88,6 @@ bool	builtin_handler(char *path, t_command *cmd, char **argv)
 		return (false);
 	builtin_dup_selector(to_dup, cmd, new_pipe[1], svg_fd);
 	dup2(to_dup[1], 1);
-	if (cmd->type_in == '|')
-		close_two(cmd->pipe_fd);
 	builtin_exec(path, cmd, argv);
 	cmd->pipe_fd[0] = new_pipe[0];
 	cmd->pipe_fd[1] = new_pipe[1];
