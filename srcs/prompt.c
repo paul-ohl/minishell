@@ -6,7 +6,7 @@
 /*   By: nomoon <nomoon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/16 19:39:25 by paulohl           #+#    #+#             */
-/*   Updated: 2021/02/16 18:31:44 by nomoon           ###   ########.fr       */
+/*   Updated: 2021/02/19 12:28:14 by nomoon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	print_prompt(char **buf)
 	write(1, "$> ", 3);
 	*buf = NULL;
 	input_return = get_user_input(buf);
+	printf("");
 	return (input_return);
 }
 
