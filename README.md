@@ -11,4 +11,6 @@ Autocompletion is not implemented.
 
 Run `make` to build the project.
 
+Run `./minishell` to start the shell, and use like you would bash.
+
 `make fclean` will delete the object files.
